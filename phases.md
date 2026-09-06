@@ -49,10 +49,10 @@ Every phase carries a **Stop here if** line. These are early kill points that fi
 
 | Item | Where it is raised | Why it blocks |
 | --- | --- | --- |
-| Threshold definition (two-of-four rule, 80-LOC / 30-LOC boundaries) | `architecture.md` §3 | P1 is unbuildable without it |
-| Catalog seeding: shipped curated vs. empty-and-accreting | `prd.md` §5 | Decides whether P7's cache-hit arm exists at all |
-| `techstack.md` at target-project repo root | `prd.md` §5 | Cheap, but P4 emits into it |
-| Ladder margin = 0.5 | `architecture.md` §10 | Starting value with no evidence; P5 depends on it |
+| Threshold definition | `architecture.md` §3 | P1 is unbuildable without it. **Closed: two-of-three**; edge-case density cut for being a category, not an applicable rule |
+| Catalog seeding | `prd.md` §5 | Decides whether P7's cache-hit arm exists at all. **Closed: ships seeded from real project decisions** |
+| `techstack.md` at target-project repo root | `prd.md` §5 | Cheap, but P4 emits into it. **Closed: repo root** |
+| Ladder margin = 0.5 | `architecture.md` §10 | Starting value with no evidence. **Still open** — blocks P5, not P1 |
 
 **Exit.** All four written into `architecture.md` with the `[OPEN]` markers removed.
 
@@ -211,11 +211,19 @@ The gate and the probes have the same author, and tuning the gate against probes
 
 ## P6 — Catalog seeding
 
-**Goal.** Seed the catalog from stack decisions **already made in existing projects** — LightningParse, Verity, Batchbird, Prahari — and let the benchmark tasks hit or miss naturally.
+**Goal.** Seed the catalog from stack decisions **already made and shipped in existing projects**, and let the benchmark tasks hit or miss naturally.
 
 **Why not seed the benchmark domains.** The earlier plan seeded the six library-available benchmark domains by running the P5 miss path on those exact domains, then measured P7's `with_skill` arm on those same tasks. Every task would have been a guaranteed hit against an entry generated for that precise task: 100% hit rate, perfect domain match, none of the partial matches, adjacent domains, or nearly-fitting index keywords that make up real use. That measures the theoretical ceiling, not steady-state performance.
 
-**Deliverables.** Entries for the domains those four projects actually resolved, each produced by running the **P5 miss path for real** — not hand-written. Hand-seeding would test the schema, not the pipeline.
+### Source eligibility
+
+A seed source must have **resolved the domain in shipped code**, not merely documented an intention. A project with a documentation suite and no implementation has produced intent, not a decision validated under load; seeding from it would put unvalidated choices into the catalog labelled as real decisions — a subtler form of the contamination this revert removed.
+
+**Eligibility test:** the dependency appears in a manifest *and* is used in code that runs.
+
+Verity and Prahari both fail it — Verity is not built, and Prahari is five markdown files with zero code files on disk. Both are excluded from seeding and from holdout derivation.
+
+**Deliverables.** Entries for the domains the eligible projects actually resolved, each produced by running the **P5 miss path for real** — not hand-written. Hand-seeding would test the schema, not the pipeline.
 
 **Exit criteria**
 - Domains seeded from real project decisions, lint clean, every adopted entry carrying smoke evidence, a stdlib rejection, and a `rubric_version`.
@@ -223,7 +231,9 @@ The gate and the probes have the same author, and tuning the gate against probes
 - Every domain file inside its size cap — 340 lines / 6 entries (`architecture.md` §4).
 - **A benchmark task that misses is recorded as a finding, not retried into a hit.** Catalog coverage transferring across projects is the property this seeding exists to measure, and a miss is evidence about it.
 
-**Stop here if:** seeding produces recommendations that contradict what those four projects actually chose, without a reason you accept on review. That is rubric miscalibration measured against real decisions rather than invented ones — a better signal than any synthetic check, and benchmarking a miscalibrated rubric measures the wrong thing.
+**Stop here if:** seeding produces recommendations that contradict what an **eligible** project actually shipped, without a reason you accept on review. That is rubric miscalibration measured against decisions that survived contact with a running system.
+
+The check is scoped to eligible sources by necessity — "contradicts what the project chose" is unevaluable against a project that never chose anything under load. For an ineligible source there is no shipped decision to contradict, so it provides no signal in either direction.
 
 ---
 

@@ -439,10 +439,14 @@ Defined up front, evaluated against real data at `phases.md` P8. Two distinct ve
 | **K2** | Acceptance pass rate is **lower** in `with_skill` than `without_skill` on any task, and the failures are attributable to the recommendation | LOC bought with broken code is not a saving. F5.5. |
 | **K3** | Any hallucinated-API acceptance failure in a `with_skill` run | The smoke-test requirement is the design's central defence (F2.4). If it does not hold, the skill is a confident source of wrong API claims — strictly worse than no skill. |
 | **K4** | A1 fails after two rounds of threshold tuning, or the trigger fires on C2 in any rep | An undisciplined trigger gets the skill disabled, at which point every other property is moot. F4.1. |
-| **K5** | **N\* > 10** | Research does not amortize at any plausible reuse rate. The caching argument is the whole economic case; without it, kosha is a per-project research tax. |
+| **K5** | **N\* > 20** (equivalently, cost ratio `r > 6`) | Research does not amortize at any plausible reuse rate. The caching argument is the whole economic case; without it, kosha is a per-project research tax. |
 | **K6** | `overhead_C1` exceeds **25,000 tokens** or doubles wall-clock | The cost of correctly concluding "no library" is high enough that users will avoid triggering the skill on anything uncertain — which is exactly where it should be most useful. |
 
 **Two tuning rounds, then stop.** K4's "after two rounds" is the only condition that permits retry, and it is bounded for the reason given in `phases.md` P1: a threshold needing a third round of hand-fitting against known cases will not generalize to unseen ones.
+
+> **Why 20 and not 10.** N\* reduces to an identity: with `r = overhead_miss / overhead_hit`, `N* = (r − 1)/0.25 = 4(r − 1)`. So N\* is purely a function of the cost ratio, and a threshold of 10 is exactly `r > 3.5`. The design's own estimate (`architecture.md` §9) predicts `r = 3.57–5.48`, so a boundary of 10 fires across the entire predicted range including its most optimistic end.
+>
+> **A kill criterion that fires when the design performs exactly as predicted is not a kill criterion — it is a prediction of failure.** At `r ≤ 6`, K5 fires on divergence from the design rather than on the design itself, which is what makes 20 defensible rather than merely larger. If the measured ratio lands inside the predicted band, K5 stays silent and the other criteria decide.
 
 ### Scrap the benchmark, not kosha
 

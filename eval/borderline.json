@@ -1,0 +1,34 @@
+[
+  {
+    "query": "write a helper that expands a date range into buckets, handling DST transitions and timezone-aware boundaries",
+    "should_trigger": true
+  },
+  {
+    "query": "implement the order state machine: six states, guarded transitions, and an audit trail",
+    "should_trigger": true
+  },
+  {
+    "query": "merge three layers of our own config format with per-key override rules",
+    "should_trigger": false
+  },
+  {
+    "query": "parse the vendor's semi-structured log lines into events",
+    "should_trigger": true
+  },
+  {
+    "query": "add a small LRU cache in front of the metadata lookups",
+    "should_trigger": false
+  },
+  {
+    "query": "compute a stable content hash across nested dicts with unordered keys",
+    "should_trigger": true
+  },
+  {
+    "query": "implement retry for exactly one call site, about 25 lines, no jitter needed",
+    "should_trigger": false
+  },
+  {
+    "query": "normalize unicode in user-supplied display names before comparison",
+    "should_trigger": true
+  }
+]

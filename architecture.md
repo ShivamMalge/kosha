@@ -68,18 +68,19 @@ kosha/
 
 ## 3. The threshold gate
 
-> **[OPEN]** This definition is proposed, not confirmed. It is the single highest-leverage tuning knob in the design: it decides both F4.1 (never fire on trivia) and F4.3 (always fire when it should).
+> **Approved at P0** as two-of-three. It remains the single highest-leverage knob in the design: it decides both F4.1 (never fire on trivia) and F4.3 (always fire when it should).
 
 Evaluated inside `SKILL.md`, **before** `INDEX.md` loads, so a decline costs nothing beyond the SKILL body.
 
-### Fire when at least two of four hold
+### Fire when at least two of three hold
 
 | Signal | Threshold |
 | --- | --- |
 | **Size** | The component is estimated at 80+ lines of non-trivial logic |
 | **Recognizable domain** | It names a known problem class: retry, backoff, rate limiting, parsing, serialization, validation, scheduling, concurrency primitives, protocol implementation, format handling, caching, diffing |
-| **Edge-case density** | Correctness depends on cases the author is unlikely to enumerate: timezones, unicode, floating point, network failure, partial writes, concurrency, encoding |
 | **Testability burden** | It would warrant its own test file rather than being covered incidentally |
+
+> **A fourth signal — edge-case density — was cut at P0.** It named a category (timezones, unicode, floating point, partial writes, encoding) but could not be stated as a rule a second person would apply identically, which fails P0's own standard: a gate only its author can operate is not a gate. It is cut rather than abandoned — four probes in `eval/borderline.json` sit on the size-versus-edge-density tension, and if two-of-three misclassifies them, those four become the concrete cases to define the signal *against*. See `SKILL.md` §2 for the recorded prediction: two-of-three fires more readily, so over-firing is the expected failure direction.
 
 ### Never fire when any of these hold
 
@@ -91,7 +92,7 @@ Evaluated inside `SKILL.md`, **before** `INDEX.md` loads, so a decline costs not
 
 ### Ambiguity rule
 
-If the two-of-four evaluation is genuinely borderline, **do not fire**. The asymmetry is intentional: a missed fire costs the user the status quo, while a false fire costs tokens *and* trains the user to disable the skill. F4.3 keeps this from degenerating — the six library-available benchmark tasks must fire every time.
+If the two-of-three evaluation is genuinely borderline, **do not fire**. The asymmetry is intentional: a missed fire costs the user the status quo, while a false fire costs tokens *and* trains the user to disable the skill. F4.3 keeps this from degenerating — the six library-available benchmark tasks must fire every time.
 
 ---
 
@@ -310,6 +311,8 @@ A `prd.md` P8 tune that recalibrates the rubric invalidates entries scored under
 | **3 — facts** | The underlying facts moved | Ordinary staleness path (R1–R4 above). Unrelated to rubric version |
 
 The 2a/2b split is the one that matters in practice. Tightening `maintained` from 12 months to 6 is a filter over a date already on disk. Adding "must ship type stubs" is a question no stored field answers, and conflating the two would price every rubric tweak as a full re-research — which is exactly the cost regeneration exists to avoid.
+
+Re-judgment in tier 2a is cheap but **not deterministic** — two sessions can score the same cached `api_shape` a point apart on `api_fit` or `docs_typing`, so a 2a anchor change on either dimension can reshuffle a ranking from scorer noise rather than from the anchor. Nothing is specified for this yet. **The first time a regeneration pass flips a decision, check whether the flip traces to the anchor change or to the scorer** — that observation decides whether this needs a mechanism at all.
 
 A regeneration pass rewrites `rubric_version` on every entry it touches, and any entry whose recomputed score crosses the recommend threshold in either direction is **re-decided and re-emitted**, not silently retained.
 

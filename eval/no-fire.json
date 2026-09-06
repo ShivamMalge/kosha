@@ -1,0 +1,90 @@
+[
+  {
+    "query": "write a helper to slug this title for the URL",
+    "should_trigger": false
+  },
+  {
+    "query": "slugify the post title",
+    "should_trigger": false
+  },
+  {
+    "query": "convert the heading into a url-safe string",
+    "should_trigger": false
+  },
+  {
+    "query": "make a small function that turns a title into a slug",
+    "should_trigger": false
+  },
+  {
+    "query": "we need url slugs from the article titles",
+    "should_trigger": false
+  },
+  {
+    "query": "rename this variable to something clearer",
+    "should_trigger": false
+  },
+  {
+    "query": "fix the typo in the error message",
+    "should_trigger": false
+  },
+  {
+    "query": "add a docstring to this method",
+    "should_trigger": false
+  },
+  {
+    "query": "reorder the imports",
+    "should_trigger": false
+  },
+  {
+    "query": "extract this block into its own function",
+    "should_trigger": false
+  },
+  {
+    "query": "wire the parser into the CLI entrypoint",
+    "should_trigger": false
+  },
+  {
+    "query": "pass the logger through to the worker",
+    "should_trigger": false
+  },
+  {
+    "query": "thread the request id into the log lines",
+    "should_trigger": false
+  },
+  {
+    "query": "move these constants into settings.py",
+    "should_trigger": false
+  },
+  {
+    "query": "add a field to this dataclass",
+    "should_trigger": false
+  },
+  {
+    "query": "convert the dict into our internal Record type",
+    "should_trigger": false
+  },
+  {
+    "query": "apply our late-fee rule: 1.5% after 30 days, waived for annual plans",
+    "should_trigger": false
+  },
+  {
+    "query": "compute the discount tier from our pricing table",
+    "should_trigger": false
+  },
+  {
+    "query": "swap requests for the httpx client we already depend on",
+    "should_trigger": false
+  },
+  {
+    "query": "we already use tenacity -- add retry to this one call",
+    "should_trigger": false
+  },
+  {
+    "query": "add a --verbose flag to the existing argparse parser",
+    "should_trigger": false
+  },
+  {
+    "query": "add a 20-line adapter between the store interface and the new backend",
+    "should_trigger": false
+  }
+]

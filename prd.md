@@ -64,11 +64,12 @@ A recommendation must beat everything to its left, not merely be usable. "Write 
 
 Marked so they are not mistaken for settled decisions.
 
-- **[OPEN] Threshold definition.** Proposed in `architecture.md` §3 as a two-of-four rule over estimated LOC, domain recognizability, edge-case density, and whether the component would need its own test suite. Not yet confirmed.
-- **[OPEN] Catalog seeding.** Whether the catalog ships with curated entries or starts empty and accretes. The benchmark's cache-hit arm is only meaningful if seeded; assumed seeded with the benchmark domains.
-- **[OPEN] `techstack.md` location** in the target project. Assumed repo root.
+- **CLOSED at P0. Threshold definition.** `architecture.md` §3, a **two-of-three** rule over estimated LOC, domain recognizability, and whether the component would need its own test suite. A fourth signal, edge-case density, was cut for being a category rather than an applicable rule.
+- **CLOSED. Catalog seeding.** Ships seeded, from stack decisions already made in existing projects — never from the benchmark's own task domains. Benchmark tasks hit or miss naturally (`phases.md` P6).
+- **CLOSED. `techstack.md` location:** target project repo root.
+- **[OPEN] Ladder margin = 0.5.** No evidence behind the starting value. Blocks P5, not P1.
 
-Confirmed and closed: rubric structure (hard gates + weighted score), staleness policy (tiered by fact volatility), benchmark task set (8 tasks, Python + Rust).
+Also confirmed: rubric structure (hard gates + weighted score), staleness policy (tiered by fact volatility), benchmark task set (8 tasks, Python + Rust).
 
 ---
 

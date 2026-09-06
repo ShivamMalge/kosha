@@ -1,0 +1,122 @@
+Evaluating: Check whether a library already solves a component before writing it, during PLANNING only. Use when a plan step proposes building something substantial that a package likely already does - retry with backoff, rate limiting, CLI flag and config layering, schema or tabular validation, parsing and serialization, scheduling, caching, protocol or format handling. Requires at least two of - roughly 80+ lines of non-trivial logic, a recognized problem class, would warrant its own test file. Do NOT use for - anything under ~30 lines, glue and wiring, config plumbing, type conversion, renaming or refactoring, project-specific business rules, a domain the project already depends on a library for, or any point after implementation has started. When borderline, do not use.
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Warning: query failed: [WinError 2] The system cannot find the file specified
+Results: 0/20 passed
+  [FAIL] rate=0/5 expected=True: retry w/ jitter on the upload path
+  [FAIL] rate=0/5 expected=True: add retry logic with backoff to the ingest client
+  [FAIL] rate=0/5 expected=True: The ingest client fails intermittently against the upstream API. Plann
+  [FAIL] rate=0/5 expected=True: add structured retry around the S3 client calls
+  [FAIL] rate=0/5 expected=True: cli config layering
+  [FAIL] rate=0/5 expected=True: build a CLI with flags, env vars, and a config file, in that precedenc
+  [FAIL] rate=0/5 expected=True: Planning the entrypoint: command-line flags override environment varia
+  [FAIL] rate=0/5 expected=True: validate the dataframe schema before we load it
+  [FAIL] rate=0/5 expected=True: column type, nullability and range checks on the input table
+  [FAIL] rate=0/5 expected=True: Before ingest we need to check the incoming table: column types, nulla
+  [FAIL] rate=0/5 expected=True: we need schema validation on the parquet input before the transform st
+  [FAIL] rate=0/5 expected=True: add per-host rate limiting to the API client
+  [FAIL] rate=0/5 expected=True: http client that respects Retry-After on 429
+  [FAIL] rate=0/5 expected=True: Designing the outbound HTTP layer: per-host rate limits so we do not t
+  [FAIL] rate=0/5 expected=True: tokio retry with a deadline
+  [FAIL] rate=0/5 expected=True: retry this async task with exponential backoff in Rust
+  [FAIL] rate=0/5 expected=True: In the Rust worker the fallible task needs retrying with exponential b
+  [FAIL] rate=0/5 expected=True: csv to typed structs with per-row errors
+  [FAIL] rate=0/5 expected=True: parse this CSV into typed structs in Rust
+  [FAIL] rate=0/5 expected=True: The Rust importer reads a vendor CSV and needs each row deserialized i
