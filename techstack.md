@@ -73,7 +73,8 @@ Structural integrity. Run after every write-back (`architecture.md` §7.3 step 1
 - Every fenced TOML block round-trip parses
 - Required fields present per `status`; `adopted` entries must carry `smoke_test_file` and `smoke_verified_version` (`prd.md` F2.1 — hard failure)
 - Every `adopted` entry has a `rejected_alternatives` item with `id = "stdlib"` (F1.1)
-- **Size caps:** `INDEX.md` ≤ 120 lines; each domain file ≤ 200 lines and ≤ 8 entries. This is the enforcement point for progressive disclosure — without it the catalog silently becomes one large file
+- Every entry carries a `rubric_version`, and every **scored** rejection carries its per-criterion raws — the precondition for offline regeneration (`architecture.md` §6)
+- **Size caps:** `INDEX.md` ≤ 120 lines; each domain file ≤ 340 lines and ≤ 6 entries. This is the enforcement point for progressive disclosure — without it the catalog silently becomes one large file
 - Index/domain consistency: no orphan index rows, no unindexed domain files
 
 ### `scripts/staleness_check.py`
@@ -101,6 +102,20 @@ Compares `tier_a_verified_on` / `tier_b_verified_on` against today and prints wh
 
 ## 6. Benchmark tooling
 
-Deferred. `benchmark.md` specifies reuse of the existing harness at `/mnt/skills/examples/skill-creator/scripts/` (`run_eval.py`, `aggregate_benchmark.py`) rather than a new one. **That path does not exist on this machine** and the harness interface has not been confirmed, so it is not documented here yet.
+Development-time only. None of this ships with the skill, and none of it adds a runtime dependency.
 
-Token capture is via Claude Code OpenTelemetry — `CLAUDE_CODE_ENABLE_TELEMETRY=1` with `OTEL_METRICS_EXPORTER=console` for local single-user runs ([docs](https://code.claude.com/docs/en/monitoring-usage)). That is an environment variable pair, not a dependency, and adds nothing to §2.
+**Reused, not rebuilt** — the existing skill-creator harness:
+
+| Script | Job |
+| --- | --- |
+| `run_eval.py` | Trigger evaluation only. Does the skill description fire on a query set |
+| `aggregate_benchmark.py` | A/B aggregation over `eval-N/<arm>/run-M/grading.json` discovered from the filesystem |
+
+**New, and minimal.** The harness executes no paired runs and its aggregated metrics are hardcoded to three, none of which is LOC. Two small pieces close that gap:
+
+- **Runner** — sets up each task × arm × rep, launches a fresh session, collects results. Stdlib only (`subprocess`, `venv`, `json`, `pathlib`).
+- **Sidecar aggregator** (~40 lines) — mean/stddev/min/max over the four fields `grading.json` cannot represent: the four-way token split, `loc_handwritten`, `deps_transitive`, `acceptance_pass`.
+
+The alternatives were forking `aggregate_results` to accept a metric list, or encoding LOC as a boolean `expectations[]` assertion. Both were rejected in `benchmark.md` §4.3 — the second would make the primary metric unmeasurable.
+
+**Token capture** is Claude Code OpenTelemetry: `CLAUDE_CODE_ENABLE_TELEMETRY=1`, `OTEL_METRICS_EXPORTER=console`, `OTEL_METRIC_EXPORT_INTERVAL=5000` ([docs](https://code.claude.com/docs/en/monitoring-usage)). Environment variables, not dependencies — §2 is unchanged.

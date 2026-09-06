@@ -103,9 +103,13 @@ If the two-of-four evaluation is genuinely borderline, **do not fire**. The asym
 | --- | --- | --- | --- |
 | L0 | `SKILL.md` frontmatter | Always resident | 400 chars of description |
 | L1 | `catalog/INDEX.md` | Gate fired | 120 lines |
-| L2 | `catalog/domains/<slug>.md` | Domain keyword matched | 200 lines / 8 entries |
+| L2 | `catalog/domains/<slug>.md` | Domain keyword matched | 340 lines / 6 entries |
 
-**The size caps are the mechanism that prevents "one large file."** They are checked by `catalog_lint.py` and are hard failures. When a domain file hits 8 entries, it must be split into narrower domains — `http-clients.md` becomes `http-clients.md` plus `http-rate-limiting.md`. Growth goes sideways into more domain files, never downward into one big one.
+**The size caps are the mechanism that prevents "one large file."** They are checked by `catalog_lint.py` and are hard failures. When a domain file hits 6 entries, it must be split into narrower domains — `http-clients.md` becomes `http-clients.md` plus `http-rate-limiting.md`. Growth goes sideways into more domain files, never downward into one big one.
+
+> **Cap basis.** Storing per-criterion scores on rejections (§5) roughly doubles a scored rejection from ~4 lines to ~12. A worst-case adopted entry — two scored rejections, two gate-eliminated — runs ~86 lines; a domain holding two adopted entries plus four standalone rejections runs ~256. The caps were 200 lines / 8 entries before that change, which would have made lint split files far more aggressively than the design intends, and the first place anyone would notice is seeding. Entries got denser, so the entry cap comes down and the line budget goes up.
+>
+> This spends headroom against `prd.md` F5.2's 5,000-token hit bound (§9). If measured hit overhead breaches it, **the entry cap comes down before the bound goes up** — the bound is a product requirement, the cap is an implementation detail.
 
 ### INDEX.md format
 
@@ -182,13 +186,21 @@ Zero transitive dependencies, so the ladder penalty is nil.
 id = "stdlib"
 reason = "No retry or backoff primitive in the standard library. time.sleep loop is the hand-rolled case, scored separately."
 
-[[stable.rejected_alternatives]]
+[[stable.rejected_alternatives]]                  # gate-eliminated: never scored, so no raws
 id = "backoff"
-reason = "Maintenance stalled; last release predates the staleness horizon and open issues are unanswered. Gate `maintained` = fail."
+failed_gate = "maintained"
+reason = "Last release predates the staleness horizon; open issues unanswered."
 
-[[stable.rejected_alternatives]]
+[[stable.rejected_alternatives]]                  # scored: raws stored so it can be re-ranked offline
 id = "hand-rolled"
 reason = "~60 LOC including jitter, cap, and predicate handling, plus its own test file. Loses to a zero-dependency package on the ladder."
+api_fit = 4
+dep_weight = 5
+adoption = 0
+maintenance = 3
+docs_typing = 2
+transitive_deps = 0
+weighted = 3.25
 
 [rotting]                    # each field carries a tier; see section 6
 latest_version = "9.1.2"     # tier A
@@ -200,6 +212,7 @@ tier_a_verified_on = 2026-09-01
 tier_b_verified_on = 2026-07-20
 
 [scores]
+rubric_version = "1.0"
 gate_license_ok = "pass"
 gate_maintained = "pass"
 gate_installs_clean = "pass"
@@ -254,7 +267,10 @@ tier_a_verified_on = 2026-09-01
 | `smoke_test_file`, `smoke_verified_version` | stable | The evidence and what it was evidence *of* |
 | `latest_version`, `last_release` | rotting, tier A | Changes weekly; drives the major-version escalation |
 | `downloads_30d`, `open_issues`, `stars` | rotting, tier B | Drift slowly; a 90-day-old value is still directionally right |
-| `scores.*` | derived | Recomputed only when an input to it is re-verified |
+| `scores.*` on the adopted entry | derived | Recomputed only when an input to it is re-verified |
+| `scores.*` on **scored** rejections | derived | Stored so a weight change can re-rank the whole pass offline. Without these you can recompute the winner and nothing it beat, which is not a re-ranking |
+| `failed_gate` on gate-eliminated rejections | stable | These were never scored and never will be under any weighting, so they carry no raws |
+| `rubric_version` | derived | Which rubric the raws were produced under. The regeneration ladder (§6) is unimplementable without it |
 
 ---
 
@@ -281,6 +297,21 @@ tier_a_verified_on = 2026-09-01
 ### `staleness_check.py`
 
 Offline and read-only. Walks the catalog, compares `tier_a_verified_on` / `tier_b_verified_on` against today, prints expired fields per entry. It performs no verification itself — the agent decides whether an expired field is worth a network call for the question actually being asked. A Tier B expiry on an entry that is winning on `api_fit` and `dep_weight` may simply not be worth fetching, and that judgment does not belong in a script.
+
+### Regeneration — when the rubric changes, not the facts
+
+A `prd.md` P8 tune that recalibrates the rubric invalidates entries scored under the old one. `rubric_version` in `[scores]` says which rubric produced the raws; what that costs to fix depends on **what** changed. Four tiers, cheapest first.
+
+| Tier | Change | Cost |
+| --- | --- | --- |
+| **1 — weights** | Weight vector changes; dimensions and anchors unchanged | Fully offline. Recompute `weighted` from stored raws on the adopted entry *and* on every scored rejection, re-apply the ladder margin, re-rank. No network, no judgment |
+| **2a — gate tightening / anchor change** | An existing gate gets stricter, or a 0–5 anchor is redefined | Offline re-score from cached `[stable]`/`[rotting]` facts. `dep_weight`, `adoption`, `maintenance` and `license_ok` have stored numeric backing, so they recompute exactly. **`api_fit` and `docs_typing` are judgments with no stored number behind them** — an anchor change to either needs re-judgment, but from the cached `api_shape`, not from the registry |
+| **2b — gate addition / new dimension** | A *new* gate or a *new* scored dimension appears | Not offline. A new gate asks something nothing in the cache answers — "supports Python 3.13", "no `unsafe` in the crate". **Re-verify only the new fact**, for candidates that survive the existing gates. Everything already cached stays cached; this is not a research pass |
+| **3 — facts** | The underlying facts moved | Ordinary staleness path (R1–R4 above). Unrelated to rubric version |
+
+The 2a/2b split is the one that matters in practice. Tightening `maintained` from 12 months to 6 is a filter over a date already on disk. Adding "must ship type stubs" is a question no stored field answers, and conflating the two would price every rubric tweak as a full re-research — which is exactly the cost regeneration exists to avoid.
+
+A regeneration pass rewrites `rubric_version` on every entry it touches, and any entry whose recomputed score crosses the recommend threshold in either direction is **re-decided and re-emitted**, not silently retained.
 
 ---
 
@@ -445,15 +476,15 @@ Rough estimates for budgeting, ±30%. Measured values replace these once `benchm
 | --- | --- | --- |
 | **Idle** — skill never activates | Frontmatter only | ~60 |
 | **Gate declines** — trigger considered, threshold not met | `SKILL.md` body | ~1,200 |
-| **Cache hit, fresh** | above + `INDEX.md` (~800) + one domain file (~1,100) + `techstack-template.md` (~300) | **~3,400** |
-| **Cache hit, stale Tier A** | above + `staleness_check` output (~150) + 1–2 registry fetches (~1,200) + write-back (~400) | **~5,150** |
-| **Cache hit + major-version escalation** | above + smoke protocol (~600) + smoke raw output (~800) + rewrite (~400) | **~6,950** |
-| **Cold miss** | gate + `INDEX.md` (~800) + `rubric.md` (~900) + `research-protocol.md` (~1,000) + 8–12 fetches (8,000–16,000) + `smoke-test-protocol.md` (~600) + smoke raw output (~800) + `SCHEMA.md` (~700) + write-back (~900) | **~14,000–22,000** |
+| **Cache hit, fresh** | above + `INDEX.md` (~800) + one domain file (~1,900) + `techstack-template.md` (~300) | **~4,200** |
+| **Cache hit, stale Tier A** | above + `staleness_check` output (~150) + 1–2 registry fetches (~1,200) + write-back (~400) | **~5,950** |
+| **Cache hit + major-version escalation** | above + smoke protocol (~600) + smoke raw output (~800) + rewrite (~400) | **~7,750** |
+| **Cold miss** | gate + `INDEX.md` (~800) + `rubric.md` (~900) + `research-protocol.md` (~1,000) + 8–12 fetches (8,000–16,000) + `smoke-test-protocol.md` (~600) + smoke raw output (~800) + `SCHEMA.md` (~700) + write-back (~900) | **~15,000–23,000** |
 
 Two things this table is meant to make obvious:
 
 1. **The gate is the cheapest thing in the system.** A correct non-fire costs ~1.2k. This is what makes F4.2 achievable and why the threshold is evaluated before `INDEX.md` loads rather than after.
-2. **Cold miss is roughly 4–6× a hit.** That ratio *is* the economic argument, and it is a hypothesis, not a fact — `benchmark.md` computes the actual break-even hit count rather than asserting one. If measured cold-miss cost is not recovered within a plausible number of reuses, `prd.md` F5.3 fails and the kill criteria apply.
+2. **Cold miss is roughly 3.5–5.5× a hit.** That ratio *is* the economic argument, and it is a hypothesis, not a fact — `benchmark.md` computes the actual break-even hit count rather than asserting one. If measured cold-miss cost is not recovered within a plausible number of reuses, `prd.md` F5.3 fails and the kill criteria apply.
 
 ---
 

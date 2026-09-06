@@ -185,4 +185,5 @@ kosha v1 ships when:
 
 - `architecture.md` — layout, control flows, catalog schema, staleness rules, token budget
 - `techstack.md` — kosha's own tooling
-- `benchmark.md` — experimental design, metrics, kill criteria *(pending harness confirmation)*
+- `benchmark.md` — experimental design, metrics, kill criteria
+- `phases.md` — build order, exit criteria, early kill points
