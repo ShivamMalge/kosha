@@ -110,11 +110,39 @@ The gate and the probes have the same author, and tuning the gate against probes
 - Every `borderline.json` query lands ≤ 0.2 or ≥ 0.8. A rate in between is a defect regardless of which verdict is right.
 - All ~4 mid-implementation sessions stay silent. **F4.4** — the only place it is exercised before P7.
 - The four holdout probes separate correctly **on first exposure**, with no tuning afterward.
-- Non-fire cost measured and at or under the ~1,200-token estimate in `architecture.md` §9. Early read on **F4.2**.
+- Non-fire cost measured and at or under the **~246-token** compact-gate estimate (`architecture.md` §9). Early read on **F4.2**, re-based to 400 tokens once the hook stopped injecting the body every turn.
 
 **Risk burned down.** The single assumption capable of making the whole design unwanted.
 
-**Stop here if:** the gate cannot separate the probe set after two rounds of tuning. Not "tune it again" — a threshold that needs a third round of hand-fitting against known cases will not generalize to unseen ones, and the design needs rethinking rather than adjusting. A holdout failure after the fitted sets pass is the same signal, arriving later and more credibly.
+### Two tuning budgets, drawn separately
+
+P1 tunes two different artifacts, and they must not share a budget.
+
+| Budget | Tunes | Fixes | Counts against the two-round limit? |
+| --- | --- | --- | --- |
+| **Description scope (G1)** | the frontmatter description | the skill fails to load, or loads on the wrong things | **No** — but capped at **3 rounds total** (see below) |
+| **Threshold rule (G2)** | the two-of-three rule in the `SKILL.md` body | the skill loads and then decides wrongly | **Yes** |
+
+The two-round limit was written about the **threshold rule**. Spending it on description scope would trip the kill criterion without the rule ever having been tested — failing the project for a defect in a different artifact.
+
+A1 and A2 measure **G1 only** (`benchmark.md` §2), so **no A1/A2 result may consume a threshold-rule round.** Description work draws on its own budget and may use `improve_description.py` and `run_loop.py`, whose stratified train/test split guards the automated loop against overfitting.
+
+#### The G1 budget is bounded: 3 rounds, then a decision
+
+Description work has no natural stopping point — there is always another phrasing to try — so the limit is written here as a rule rather than left as an intention.
+
+**Three G1 rounds total.** **CLOSED 2026-09-06 at 1 of 3 used — the remaining two are unspent by decision, not by exhaustion.** The CLAUDE.md probe established a ~47% ceiling for model-mediated triggering against a criterion requiring 100%, so further description rounds were judged not worth their cost (`prd.md` §6b). Reopening the G1 budget requires reopening that decision.
+
+At exhaustion, no fourth round. One of two things happens instead:
+
+1. **Accept autonomous triggering as measured**, recording the achieved load rate as a known ceiling and adjusting F4.3 to match what the mechanism can actually deliver; or
+2. **Switch to deterministic invocation** — a `CLAUDE.md` directive, a slash command, or a hook — with the skill as the *payload* rather than the *trigger*.
+
+Under (2) the catalog, rubric, smoke runner, graded seeding and benchmark design are all unaffected; only the trigger mechanism changes. F4.1 becomes near-trivial because the body's two-of-three rule does all the gating, and G2 finally gets exercised.
+
+**The sealed holdout stays sealed throughout description work.** It exists to test the *rule's* generalization to real tasks, not the description's. It is not opened, not referenced, and never exposed to `run_loop`.
+
+**Stop here if:** the **threshold rule** cannot separate the probe set after two rounds of tuning. Not "tune it again" — a rule that needs a third round of hand-fitting against known cases will not generalize to unseen ones, and the design needs rethinking rather than adjusting. A holdout failure after the fitted sets pass is the same signal, arriving later and more credibly.
 
 ---
 
@@ -151,13 +179,17 @@ The gate and the probes have the same author, and tuning the gate against probes
 **Deliverables**
 - PyPI path: temp venv → pinned install → run snippet → raw stdout/stderr/exit code
 - crates.io path: temp cargo crate → pinned dependency → `cargo run`
-- Windows path resolution (`Scripts\` vs `bin/`) working on the primary dev machine
+- POSIX venv/cargo paths only (development moved to WSL Ubuntu)
 
 **Exit criteria**
 - **The negative case is the important one.** A snippet written against a deliberately wrong API — a decorator that does not exist, an argument renamed three versions ago — must exit non-zero and surface the real traceback. A runner that only ever reports success proves nothing about **F2**.
 - Raw output is emitted verbatim. The script contains no notion of pass or fail, and no summarization. Enforces the raw-output rule in `architecture.md` §7.4.
 - Both ecosystems run in a temp directory and leave the target project untouched.
 - Version resolution is reported, so what was tested is unambiguous even when the install resolved something other than requested.
+
+> **DEFERRED, not solved: Windows support for the smoke runner.** An earlier draft of P3 required `Scripts\` vs `bin/` path resolution because development was on native Windows. Development moved to WSL Ubuntu (`run_eval.py` uses `select()` on a pipe, which is POSIX-only), so that work item is out of P3's scope — **not because it was done, and not because it stopped mattering.**
+>
+> If kosha is ever used by anyone but its author, Windows support for `smoke_test.py` returns as its own problem: venv binaries under `Scripts\`, `.exe` suffixes, and `CreateProcess` not resolving `.cmd` from PATH — the same class of issue that forced the move. Recorded now while the reason is fresh, so a later reader does not read its absence as evidence it was handled.
 
 **Stop here if:** isolated installs are too slow or too flaky to sit inside a planning turn. That would make **F5** unwinnable on the miss path regardless of how good the research is, and the design would need an offline evidence strategy instead.
 
@@ -215,13 +247,24 @@ The gate and the probes have the same author, and tuning the gate against probes
 
 **Why not seed the benchmark domains.** The earlier plan seeded the six library-available benchmark domains by running the P5 miss path on those exact domains, then measured P7's `with_skill` arm on those same tasks. Every task would have been a guaranteed hit against an entry generated for that precise task: 100% hit rate, perfect domain match, none of the partial matches, adjacent domains, or nearly-fitting index keywords that make up real use. That measures the theoretical ceiling, not steady-state performance.
 
-### Source eligibility
+### Source eligibility — graded, not gated
 
-A seed source must have **resolved the domain in shipped code**, not merely documented an intention. A project with a documentation suite and no implementation has produced intent, not a decision validated under load; seeding from it would put unvalidated choices into the catalog labelled as real decisions — a subtler form of the contamination this revert removed.
+Evidence strength is a **gradient**, not a completion checkbox. Gating on "is the project finished" would reject a real decision for the unrelated reason that the surrounding project stalled, and a dependency you chose and then wrote code against is a made decision whether or not the project ever shipped.
 
-**Eligibility test:** the dependency appears in a manifest *and* is used in code that runs.
+| Grade | Evidence | Use |
+| --- | --- | --- |
+| **A — shipped / published** | Released or deployed; the choice survived users | Strongest. Seed freely |
+| **B — working code** | Dependency in a manifest *and* used by code that runs, project unfinished | Seed. Record the grade on the entry |
+| **— documentation only** | Named in a PRD, architecture doc, or plan; no code | **Not evidence.** Never seed |
 
-Verity and Prahari both fail it — Verity is not built, and Prahari is five markdown files with zero code files on disk. Both are excluded from seeding and from holdout derivation.
+The line is between a decision **made** and a decision **described**. Documentation records intent, and intent has not been tested against anything.
+
+**Known determinations** (survey of 2026-09-06, not to be re-litigated):
+- **Prahari — excluded.** Five markdown files, zero code files. Documentation only, on its own evidence.
+- **Verity — excluded.** Not built; documentation suite, no code.
+- **Batchbird — grade B, eligible.** Working Rust with dependencies in actual use. Unfinished, which is irrelevant under a graded rule. It is **not** the Verity/Prahari case.
+
+Entries carry their source grade so a later reviewer can weigh a B-grade seed differently from an A-grade one without re-deriving where it came from.
 
 **Deliverables.** Entries for the domains the eligible projects actually resolved, each produced by running the **P5 miss path for real** — not hand-written. Hand-seeding would test the schema, not the pipeline.
 
@@ -231,9 +274,9 @@ Verity and Prahari both fail it — Verity is not built, and Prahari is five mar
 - Every domain file inside its size cap — 340 lines / 6 entries (`architecture.md` §4).
 - **A benchmark task that misses is recorded as a finding, not retried into a hit.** Catalog coverage transferring across projects is the property this seeding exists to measure, and a miss is evidence about it.
 
-**Stop here if:** seeding produces recommendations that contradict what an **eligible** project actually shipped, without a reason you accept on review. That is rubric miscalibration measured against decisions that survived contact with a running system.
+**Stop here if:** seeding produces recommendations that contradict what an **eligible** project actually chose in code, without a reason you accept on review. That is rubric miscalibration measured against decisions that survived contact with a running system.
 
-The check is scoped to eligible sources by necessity — "contradicts what the project chose" is unevaluable against a project that never chose anything under load. For an ineligible source there is no shipped decision to contradict, so it provides no signal in either direction.
+The check is scoped to eligible sources by necessity — "contradicts what the project chose" is unevaluable against a project that only described its intentions. For a documentation-only source there is no decision to contradict, so it provides no signal in either direction.
 
 ---
 
@@ -246,6 +289,8 @@ The revert carries a risk: if seeding from four real projects yields only one or
 **Method.** Run all eight benchmark tasks through **routing only** — gate plus index match. No research, no smoke test, no implementation. Nearly free.
 
 **Go/no-go, pre-registered: at least 3 of 8 tasks must route to a hit.** Basis, stated so it is not re-litigated later: three hits at three reps is nine runs, the minimum that gives F5.2 any variance estimate at all. Arbitrary and declared.
+
+> **Noted against this gate, not acted on** (survey of 2026-09-06): no eligible source surveyed so far uses a retry/backoff library — no `tenacity`, `backoff`, or `backon`. If that holds, **T1 and T5 would miss**, while Batchbird's `csv` and DevScout's `click`/`pydantic-settings` suggest T6 and T2 as likely hits. That is roughly 2–3 hits against a bar of 3, before the source list is settled. Recorded so the gate is not a surprise. **No action now** — P6 does not happen at all if P1 fails its *Stop here if*.
 
 **If the bar is missed**, remedies in order:
 1. Broaden seeding to **more real-project domains**.

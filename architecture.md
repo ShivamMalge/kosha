@@ -478,7 +478,7 @@ Rough estimates for budgeting, ±30%. Measured values replace these once `benchm
 | Path | What loads | Est. tokens |
 | --- | --- | --- |
 | **Idle** — skill never activates | Frontmatter only | ~60 |
-| **Gate declines** — trigger considered, threshold not met | `SKILL.md` body | ~1,200 |
+| **Gate declines** — threshold not met | Compact gate only (`hooks/gate_prompt.txt`); the body never loads | **~246** |
 | **Cache hit, fresh** | above + `INDEX.md` (~800) + one domain file (~1,900) + `techstack-template.md` (~300) | **~4,200** |
 | **Cache hit, stale Tier A** | above + `staleness_check` output (~150) + 1–2 registry fetches (~1,200) + write-back (~400) | **~5,950** |
 | **Cache hit + major-version escalation** | above + smoke protocol (~600) + smoke raw output (~800) + rewrite (~400) | **~7,750** |

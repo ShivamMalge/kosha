@@ -64,7 +64,9 @@ smoke_test.py --ecosystem crates --package backon --version 1.2.0 --snippet <pat
 - **Never interprets.** It has no notion of pass or fail. The agent reads the raw output and decides. This is the mechanism behind `prd.md` F2 (hallucinated APIs) — a script that reported "success" would reintroduce exactly the self-report the design forbids
 - Isolation is mandatory: the environment is a temp directory, never the target project
 
-*Windows note:* venv binaries live under `Scripts\` rather than `bin/`. The runner resolves the interpreter path from `sys.platform` — the primary development machine is Windows, so this is the default path, not an afterthought.
+*Platform:* development runs on **WSL Ubuntu**, so the runner targets POSIX layout (`bin/`). The move was forced by the benchmark harness, not chosen: `run_eval.py` streams subprocess output through `select()` on a pipe, which on Windows accepts sockets only.
+
+> **DEFERRED — Windows support for the smoke runner.** Not solved and not obsolete. If kosha is used by anyone but its author it comes back as its own problem: venv binaries under `Scripts\`, `.exe` suffixes, and `CreateProcess` declining to resolve `.cmd` from PATH. Absence from the current scope is a consequence of a single-developer environment, not evidence the problem was handled.
 
 ### `scripts/catalog_lint.py`
 
@@ -103,6 +105,10 @@ Compares `tier_a_verified_on` / `tier_b_verified_on` against today and prints wh
 ## 6. Benchmark tooling
 
 Development-time only. None of this ships with the skill, and none of it adds a runtime dependency.
+
+> **"No fork" is partial, and the distinction matters.** What is preserved is the harness's *internals* — in particular `run_eval.py`'s streaming trigger-detection loop, which is the code that defines pass/fail. Forking that would mean a silent upstream change could stop results being comparable without anyone noticing.
+>
+> What is still written here: an A/B **runner**, because `aggregate_benchmark.py` executes nothing and only reads results off disk; and a **sidecar aggregator**, because its three metrics are hardcoded and the primary metric is not among them. The line is **writing code alongside the harness, never modifying it**. A later reader should not take this section as a claim that the benchmark is fully off-the-shelf.
 
 **Reused, not rebuilt** — the existing skill-creator harness:
 

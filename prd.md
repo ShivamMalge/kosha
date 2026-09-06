@@ -139,16 +139,36 @@ These are the five ways kosha can be worse than nothing. Each has criteria that 
 
 **Why it happens:** trigger descriptions written to maximize recall. A skill that fires on "any implementation task" is trivially easy to write and useless.
 
+### F4 spans two gates in series
+
+Over-triggering is not one event. There are two, and they need separate names:
+
+| | Gate | Decided by | Cost of passing it wrongly |
+| --- | --- | --- | --- |
+| **G1 — load** | Does the gate get into context at all? | Autonomous: the **frontmatter description**. Deterministic: a **`UserPromptSubmit` hook**, certain by construction | ~246 tokens (the compact gate; the body loads only on a FIRE) |
+| **G2 — proceed** | Once loaded, does the two-of-three rule fire? | The **`SKILL.md` body** | The catalog index, a domain file, possibly a full research pass |
+
+**Under deterministic invocation, F4.1 and F4.3 are both G2 criteria.** A hook makes loading certain by construction, so neither is about the description any more; both ask whether the injected gate is *applied* correctly. They stay a matched pair for the original reason — either alone is satisfiable by a degenerate rule.
+
+**Timing is a G2 concern, not G1.** Whether implementation has begun is a property of the *conversation*, not of the query text. A frontmatter description can only match it on surface form — which produces triggering driven by whether the user happened to type the word "planning", not by the actual state of the session. So the planning-only constraint lives in the `SKILL.md` body, and **F4.4 is a G2 criterion**, instrumented where it always was: transcript inspection.
+
+**F4.1 means "never proceeds," not "never loads."**
+
+The proof is F4.2's existence. F4.2 bounds "the token cost of a **correct non-fire**" at 1,500 tokens — a quantity that is only meaningful if loading-then-declining is an acceptable outcome with a real, bounded price. `architecture.md` §3 designs for exactly that: the threshold is evaluated inside `SKILL.md` *before* `INDEX.md` loads, so a decline costs the body and nothing more. If F4.1 meant "never loads," there would be no such thing as a correct non-fire and F4.2 would be vacuous.
+
+So a skill that loads on a trivial query and then correctly declines has **passed** F4.1 and is being measured by F4.2.
+
 **Mitigations:** the threshold gate is evaluated *before* the catalog index loads, so a non-fire costs the SKILL.md body and nothing else. The gate carries an explicit never-fire list (glue code, config wiring, project-specific business logic, anything under roughly 30 LOC, and any domain the project already has a dependency for).
 
 **Acceptance criteria**
 
 | # | Criterion | How measured |
 | --- | --- | --- |
-| F4.1 | On the trivial control task (C2), the trigger does not fire in **any** repetition of the skill-on arm. | Benchmark C2, all reps — a single fire fails this criterion |
-| F4.2 | Token cost of a correct non-fire is at most 1,500 tokens above the skill-off baseline for the same task. | Fresh, cache-read and output token deltas, `benchmark.md` |
-| F4.3 | Under-trigger counterpart: on the six library-available tasks, the trigger fires in every repetition. A gate tuned to never fire passes F4.1 vacuously. | Benchmark T1–T6, all reps |
-| F4.4 | The trigger never fires once implementation has begun in a session. | Transcript inspection across all skill-on runs |
+| F4.1 | On the trivial control task (C2), the model **declines in the gate** in every repetition. | **G2 criterion.** Transcript, via the `KOSHA: DECLINE` verdict line. Under deterministic invocation G1 is certain, so A1 no longer applies |
+| F4.2 | Token cost of a correct non-fire is at most **400 tokens** above the skill-off baseline — the compact gate only, not the body. Re-based from 1,500 once the hook stopped injecting `SKILL.md` every turn. | Fresh, cache-read and output token deltas, `benchmark.md` §7.4 |
+| F4.5 | **Session-aggregate load overhead** is bounded. Threshold **deliberately unset** until there is at least one measurement: F4.2 bounds a single load, and nothing previously bounded paying it on every turn. | `benchmark.md` §7.4 `load_overhead_tokens` |
+| F4.3 | Under-trigger counterpart: on the six library-available tasks, the model **proceeds** in every repetition. A gate tuned to never fire passes F4.1 vacuously. | **G2 criterion.** Transcript, via the `KOSHA: FIRE` verdict line |
+| F4.4 | The skill never **proceeds** once implementation has begun in a session. | **G2 criterion.** Transcript inspection: P1's hand-operated sessions and P7 `trigger_fired`. Not measurable by `run_eval.py` |
 
 > F4.1 and F4.3 are stated as a pair on purpose. Either one alone is trivially satisfiable by a degenerate gate; both together constrain it.
 
@@ -173,6 +193,43 @@ These are the five ways kosha can be worse than nothing. Each has criteria that 
 > **Why LOC is the primary metric and tokens are secondary.** Tokens are a cost paid once, by one session, and are falling. Hand-written code is a liability carried for the life of the project: it is reviewed, tested, debugged, ported, and maintained by people. A skill that spends 20k extra tokens to avoid 200 lines of hand-rolled retry logic is a clear win even though the token line looks bad. The inverse — fewer tokens, same code written — is no win at all. Tokens are therefore reported and bounded (F5.2, F5.3, F5.4) but never traded against LOC. The full justification and the constant-acceptance condition are in `benchmark.md`.
 
 ---
+
+## 6b. Scope revision — invocation mechanism (2026-09-06)
+
+Recorded as a revision, not folded silently into the design.
+
+### Evidence that forced it
+
+Three rounds of G1 measurement against `run_eval.py`:
+
+| | Result |
+| --- | --- |
+| Round 0 (timing constraint in the description) | 6% of must-fire runs loaded; register gradient 0% / 3% / 17% |
+| Round 1 (timing moved to body, vocabulary made concrete) | 29%; registers converged to 27% / 33% / 37% |
+| CLAUDE.md directive (strongest advisory intervention available) | **47%**; registers 43% / 48% / 50%; imperative met topic-framed at ~47% |
+
+Every lever drove the whole distribution to the same place, and that place is roughly half. The compression is the corroborating detail: if this were a signal-strength problem the strongest queries would have risen, but the **maximum fell from 4/5 to 3/5**. Everything is pulled toward a coin flip, which is what model-mediated triggering looks like once it has all the signal it can use.
+
+**F4.3 requires 5/5. No query reached it under any condition.** Two further description rounds would buy perhaps ten points against a criterion requiring 100%.
+
+### Decision: mechanical invocation
+
+**The two mechanical options are not equivalent, and must not be presented as though they were.**
+
+| Mechanism | Determinism | Scope |
+| --- | --- | --- |
+| **Hook** (`UserPromptSubmit`) | Fires unconditionally, without anyone remembering | **Preserves the original premise** |
+| **Slash command** (`/kosha`) | Certain *only if the user types it* | **Reduced scope** |
+
+**A slash command changes what kosha is.** The failure kosha exists to prevent is an agent hand-rolling a parser *without anyone thinking to check*. If invocation requires the user to remember to type `/kosha`, the discipline has moved back into the user's head — which is exactly where it already was, and the reason the problem exists. A slash-command kosha is a **reference tool consulted on demand**, not a **guardrail that catches what you did not think to question**.
+
+That is a genuine reduction in scope, not an implementation detail. If kosha ships slash-command-only, `§1 Problem` no longer describes what it solves and must be rewritten to match.
+
+**Preferred mechanism: hook.** The slash command is a fallback, and if adopted it ships labelled as a reduced-scope product.
+
+### What is unaffected
+
+Catalog, entry schema, staleness tiers, rubric, ladder, smoke runner, graded seeding, and the benchmark's A/B design are all independent of the trigger mechanism. Only how kosha gets invoked changes — the skill becomes a **payload** rather than a **trigger**.
 
 ## 7. Definition of done
 

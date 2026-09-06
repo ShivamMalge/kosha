@@ -1,0 +1,25 @@
+kosha gate — planning-time library check.
+
+NEVER fire if any of these hold:
+- implementation of this component has already begun in this session
+- under roughly 30 lines
+- glue, wiring, config plumbing, or type shuffling between existing things
+- rename, reorder, extract, docstring, typo fix — no new capability
+- project-specific business rules
+- the project already depends on a library covering this domain
+
+Otherwise FIRE only if at least two of three hold:
+1. roughly 80+ lines of non-trivial logic
+2. a recognized problem class — retry, backoff, rate limiting, parsing,
+   serialization, validation, scheduling, concurrency primitives, protocol,
+   format handling, caching, diffing
+3. would warrant its own test file
+
+Genuinely borderline → do not fire.
+
+Emit exactly one line recording the decision:
+  KOSHA: FIRE <domain>
+  KOSHA: DECLINE <clause>
+
+On FIRE only, read SKILL.md in the kosha skill directory and follow it.
+On DECLINE, continue with the task normally.

@@ -72,6 +72,47 @@ The fix is to split the eval set by direction and run each with a threshold that
 | **A2 under-trigger** | `must-fire.json` — all `should_trigger: true` | 5 | **0.99** | `trigger_rate >= 0.99`, i.e. **5 fires out of 5** | F4.3 |
 | **A3 borderline** | `borderline.json` | **15** | 0.5 | `trigger_rate` must land **≤ 0.2 or ≥ 0.8**. Anything in between is a coin-flipping gate | Consistency |
 
+### What Instrument A actually measures — a known bias
+
+`run_eval.py` writes the skill's **description** into `.claude/commands/` and detects whether Claude *loads* the skill. It measures **G1 (load)** only. The two-of-three rule lives in the `SKILL.md` body, which is read only after loading, so **G2 (proceed) is not instrumented by A1 or A2 at all.**
+
+The bias runs in both directions and is not symmetric:
+
+| Observation | What it licenses |
+| --- | --- |
+| **A1 passes** | Strong evidence for F4.1. A query that never loads certainly never proceeds. |
+| **A1 fails** | **Inconclusive.** The skill may have loaded and then correctly declined — which `prd.md` F4.1 counts as a pass and F4.2 prices at ~246 tokens under the compact gate. A1 cannot tell a wrong *proceed* from a correct *load-then-decline*. |
+| **A2 fails** | Evidence about **description scope**, not about the two-of-three rule. A perfectly good rule scores 0/5 if the description was too narrow to load the skill. |
+| **A2 passes** | The description is broad enough to load. Says nothing about whether the rule then fires correctly. |
+
+**F4.1, F4.3 and F4.4 are all G2 criteria** under deterministic invocation. A hook makes G1 certain, so `run_eval.py`'s A1/A2 no longer test anything load-related that is in doubt. All three are measured from transcripts, via the **G2 runner** below and P1's hand-operated mid-implementation sessions.
+
+#### The G2 runner
+
+Reuses `no-fire.json`, `must-fire.json` and `borderline.json` **verbatim**, at the same reps and thresholds, so every register and domain breakdown and all pre-registration continuity carries over, and round-1 numbers stay comparable. It installs the hook, runs `claude -p` over each query, and greps the transcript for the verdict line. Detection stays deterministic even though the decision is model-mediated: no model judging a model.
+
+Written **alongside** the harness; `run_eval.py` is never modified (`techstack.md` §6). Its setup check asserts the same envelope shape the hook does — `additionalContext` nested inside `hookSpecificOutput`, never at top level, because top-level placement is ignored silently.
+
+##### The verdict line is permanent, and that is the point
+
+`SKILL.md` and the gate prompt both instruct emitting exactly one line: `KOSHA: FIRE <domain>` or `KOSHA: DECLINE <clause>`.
+
+This is **not a formatting preference and not a benchmark-only affordance.** Asking the model to state its decision aloud makes that decision explicit and output-visible, and a rule stated aloud is applied more deliberately than one applied silently. If the verdict line existed only during measurement, the G2 runner would be measuring the rule **under observation**, and production would run a different, un-measured condition.
+
+Keeping it permanent neutralizes the observer effect by making benchmark and production **the same condition**. The line is part of the product, not the instrument.
+
+**A1 is therefore a conservative proxy for F4.1:** it can fail on behaviour the PRD considers acceptable, but it cannot pass on behaviour the PRD considers wrong.
+
+#### A1's denominator is inflated — report the weighted subset separately
+
+`no-fire.json` queries 1–18 (slugify paraphrases, renames, docstrings, glue, business rules) are close to free: nothing about them resembles a library-shaped component. Queries **19–22** carry the discriminating load, each containing a signal that pulls toward firing — an already-satisfied domain, a CLI keyword on a trivial task, a structural-sounding change under the size bar.
+
+So a headline "22/22, zero fires across 110 calls" overstates the evidence roughly fivefold. The real test is **4 queries / 20 calls**.
+
+**Reporting rule: every round states A1 as two lines** — the full set, and the weighted subset 19–22 with its own denominator. The headline number cannot then drift into meaning more than it does.
+
+**G2 is instrumented only by transcript inspection** — P1's hand-operated F4.4 sessions, and P7's per-run `trigger_fired` and `kosha_path` fields. Any tuning decision aimed at the two-of-three rule must come from those, never from an A1/A2 rate.
+
 Both strict passes are deliberately unforgiving. A skill that fires 4 times in 5 on "add retry logic" is not reliable enough to build a plan step on, and one that fires once in 5 on "rename this variable" is a skill users will disable.
 
 Failed subprocess calls count as non-triggers, which biases A2 toward failure and A1 toward passing. So an A1 pass with any subprocess errors in the log is **not** a clean pass — the runner must report the error count alongside the result, and A1 is re-run if it is non-zero.
@@ -403,7 +444,49 @@ N* = (overhead_miss − overhead_hit) / (0.25 × overhead_hit)
 
 N\* is published with its inputs, so the arithmetic is checkable. `prd.md` F5.3 requires this number to exist and be plausible — a domain reused three or four times across a codebase is ordinary; one needing forty reuses to pay for itself is not.
 
-### 7.4 Dependency metrics
+### 7.4 Load frequency and aggregate overhead
+
+F4.2 bounds the cost of **one** correct non-fire. Nothing previously bounded **how often** it is paid. Under deterministic invocation the hook fires on *every* user prompt, so the question stops being hypothetical.
+
+#### Compact gate, not the body
+
+The hook injects a **compact gate prompt** (`hooks/gate_prompt.txt`, measured **246 tokens**), not `SKILL.md`. The gate carries the never-fire list, the two-of-three rule, and the verdict-line instruction, and tells the model to read `SKILL.md` **only on a FIRE**. The body (measured **1,496 tokens**) therefore loads only when kosha actually proceeds.
+
+| Model | 20-turn session |
+| --- | --- |
+| Body injected every turn | 20 x 1,496 = **29,920** |
+| Compact gate, 0 fires | 20 x 246 = **4,920** |
+| Compact gate, 1 fire | 4,920 + 1,496 = **6,416** |
+| Compact gate, 2 fires | 4,920 + 2,992 = **7,912** |
+| Compact gate, 4 fires | 4,920 + 5,984 = **10,904** |
+
+**Per-turn floor falls from ~1,496 to ~246 tokens, a 6.1x reduction**, and the aggregate for a realistic session drops roughly four-fold.
+
+Two consequences:
+
+1. **F4.2 is re-based from 1,500 to 400 tokens.** A correct non-fire is now a gate-only decline, and the old bound was sized for a body load that no longer happens on the decline path.
+2. **The shell-level regex prefilter is probably unnecessary.** It was proposed to avoid paying ~1,500 tokens per turn; at 246 it buys little and costs a deterministic false-negative surface. Not adopted.
+
+#### Metric
+
+Per-run fields in `metrics.json`:
+
+```
+"turns_total":          <turns in the session>
+"loads_total":          <turns where the gate was injected>   # = turns_total under a hook
+"loads_proceeded":      <turns reaching KOSHA: FIRE>
+"gate_tokens":          <measured compact-gate cost>
+"body_tokens":          <measured SKILL.md cost when loaded>
+"load_overhead_tokens": <loads_total * gate_tokens + loads_proceeded * body_tokens>
+```
+
+Reported as `decline_rate = 1 - loads_proceeded / loads_total` alongside `load_overhead_tokens`. Under a hook `load_rate` is 1.0 by construction and carries no information; `decline_rate` replaces it as the interesting figure.
+
+> **F4.5's threshold is deliberately unset.** Same reasoning as the kill criteria: there is not yet a single measurement of aggregate overhead, and choosing a number before there is one would be picking it to look rigorous. The metric is instrumented now so the first real data can set it.
+
+> **No existing kill criterion would catch a bad result here.** K1/K2/K5 are LOC, acceptance and cost-ratio; K3 is hallucinated APIs; K4 is per-task triggering; K6 bounds C1's single-task overhead. Stated rather than patched.
+
+### 7.5 Dependency metrics
 
 Mean and max `deps_transitive` across T1–T6 skill-on runs (F1.2, target ≤ 5); any run above 15 checked for the written justification (F1.3); `deps_added` in the skill-off arm reported too — the hand-rolling arm sometimes reaches for something heavier, and that comparison is part of the bloat question.
 
