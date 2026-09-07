@@ -1,0 +1,437 @@
+{
+  "eval_set": "must-fire-framed.json",
+  "runs_per_query": 5,
+  "gate_tokens_est": 268,
+  "summary": {
+    "queries": 20,
+    "total_runs": 100,
+    "FIRE": 62,
+    "DECLINE": 38,
+    "ABSENT": 0,
+    "ERROR": 0,
+    "errors": 0,
+    "wall_seconds": 908.7
+  },
+  "results": [
+    {
+      "query": "Write the retry-with-jitter wrapper for the upload path by hand: a loop, a sleep, a randomized delay.",
+      "should_trigger": true,
+      "FIRE": 3,
+      "DECLINE": 2,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}},\"session_id\":\"181aa7f1-0d26-4562-9494-031e7fb0f3c9\",\"parent_too",
+        "under-30-lines\\n\\nLet me look at the upload path first.\"}],\"stop_reason\":null,\"s",
+        "ret\"}},\"session_id\":\"d2a9c473-bd30-42e6-9695-e492dd17a67b\",\"parent_tool_use_id\":",
+        "under roughly 30 lines\\n\\nLet me look\"}},\"session_id\":\"c94152ee-3383-49dc-9b2c-c",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us"
+      ],
+      "runs": 5,
+      "fire_rate": 0.6,
+      "decline_rate": 0.4,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the retry-with-backoff loop for the ingest client by hand: while loop, doubling sleep, max attempts.",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under-30-lines\"}},\"session_id\":\"cefb98e2-1f46-4e67-bda9-77008f962e83\",\"parent_to",
+        "under roughly 30 lines\\n\\nLet me look at the ingest client to match its style.\"}",
+        "under roughly 30 lines\"}},\"session_id\":\"a7b3c00b-063d-477c-a54a-605bcecafa9c\",\"p",
+        "under-30-lines\"}},\"session_id\":\"e243ab95-08a7-4891-ab36-d41cee0dda48\",\"parent_to",
+        "under roughly\"}},\"session_id\":\"56bbacb8-3765-4690-8b02-3a4a1d10f290\",\"parent_too"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the retry handling for the ingest client by hand: a loop with exponential sleep, jitter, an attempt cap, and a check on which exception types to retry.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}},\"session_id\":\"0808fbb6-23b4-4852-bdab-7c7cac3205c8\",\"parent_too",
+        "retry-\"}},\"session_id\":\"9d1b9a18-cc78-4409-87fd-99be59ee91ce\",\"parent_tool_use_i",
+        "retry-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff**\\n\\nI tried to read `/home/shivam/kosha/SKILL.md` to follow the g"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the retry wrapper around the S3 client calls by hand: catch, sleep, re-issue.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}},\"session_id\":\"607cd595-ff52-4ae7-a5e5-eeca2cf7ca08\",\"parent_too",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the CLI config layering by hand: read flags, then env, then file, merging in that order.",
+      "should_trigger": true,
+      "FIRE": 2,
+      "DECLINE": 3,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "config pl\"}},\"session_id\":\"f13ac3aa-36f7-4aa7-a437-8145bf5de588\",\"parent_tool_us",
+        "cli-config-layering-and-mer\"}},\"session_id\":\"ae2969f1-f381-4fe6-be66-d6247425f34",
+        "cli-config-layering (flags/env/file precedence merging)\\n\\nI tried to read the k",
+        "\u2014 user explicitly asked for a hand-written implementation, and the remaining cla",
+        "config plumbing;\"}},\"session_id\":\"6c4d97d4-6895-4dec-bb68-19d8246583ce\",\"parent_"
+      ],
+      "runs": 5,
+      "fire_rate": 0.4,
+      "decline_rate": 0.6,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the CLI by hand: an argparse parser, an env lookup, a TOML read, and merge logic for precedence.",
+      "should_trigger": true,
+      "FIRE": 2,
+      "DECLINE": 3,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "cli-config-layering\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu",
+        "config plumbing between existing things (argparse, tomllib\"}},\"session_id\":\"4a26",
+        "config plumbing\\n\\nLet me look at what's already in the working directory before",
+        "glue, wiring, config plumbing\\n\\nEmpty directory, so I'm writ\"}},\"session_id\":\"8",
+        "cli-config-layering\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu"
+      ],
+      "runs": 5,
+      "fire_rate": 0.4,
+      "decline_rate": 0.6,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the entrypoint config resolution by hand: parse flags, read env, load the TOML, merge with flags winning, and hand-check the types.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "cli-config-resolution (flag parsing + TOML load + schema/type validation)\\n\\nI n",
+        "config-resolution (CLI flag parsing + env + TOML merge + type validation)\"}},\"se",
+        "config-resolution (CLI flags + env + TOML merge with type validation)\"}],\"stop_r",
+        "config-resolution (flag/\"}},\"session_id\":\"1fd626e9-739a-4550-96b9-56c7cfe13b9f\",",
+        "layered config resolution (CLI flag parsing + env + TOML merge + type validation"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the dataframe schema check by hand: loop the columns, assert the dtypes.",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "clause 1 \u2014 a column loop with dtype assertions is not 80+ lines of non-trivial l",
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "under roughly 30 lines\"}},\"session_id\":\"fd02c493-1e01-4de0-8f5d-3e1611d63607\",\"p",
+        "under-30-lines glue;\"}},\"session_id\":\"b5f68e6f-2d06-48fb-8d82-7d8d6c79e953\",\"par",
+        "under-80-lines\\n\\nEmpty working dir, so I'll create the\"}},\"session_id\":\"f5fce45"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the column checks by hand: iterate the columns, check type, null count, and min/max.",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under-80-lines\\n\\nLet me look at the project to see what data structure these ch",
+        "user explicitly asked for hand-written checks; scope is a sub-30-line loop, not ",
+        "user explicitly scoped this to a hand-written implementation, not a library sele",
+        "\u2014 user explicitly chose hand-written; only the \\\"validation\\\" clause clear\"}},\"s",
+        "under ~80 lines of non-trivial logic \u2014\"}},\"session_id\":\"2b99ccc6-5566-4611-8ff3-"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the table validation by hand: loop the rows, check column types and ranges, track two cross-column conditions, and accumulate failures into a list.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "table/dataframe validation\"}},\"session_id\":\"7a377f84-206b-48e3-bd2d-5e8358f84643",
+        "table validation\"}},\"session_id\":\"eb9a7846-0555-4582-9e73-46500cbd5031\",\"parent_",
+        "table/dataframe validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_deta",
+        "tabular-data-validation\"}},\"session_id\":\"909dcda4-b0b0-419d-ad56-bdd02585a9b9\",\"",
+        "table/dataframe validation\"}},\"session_id\":\"63aae762-c89c-4811-8df1-2c120de150d4"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the parquet schema check by hand before the transform step: read the schema, compare the field types.",
+      "should_trigger": true,
+      "FIRE": 4,
+      "DECLINE": 1,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "parquet schema validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_detai",
+        "parquet-schema-validation**\\n\\nOff-the-shelf options exist for this (`pyarrow`'s",
+        "parquet-schema-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_detai",
+        "parquet-schema-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_detai",
+        "project already depends on a library for this domain (parquet reading via pyarro"
+      ],
+      "runs": 5,
+      "fire_rate": 0.8,
+      "decline_rate": 0.2,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the per-host rate limiter for the API client by hand: a dict of timestamps, a sleep before each call.",
+      "should_trigger": true,
+      "FIRE": 3,
+      "DECLINE": 2,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under roughly 30 lines\\n\\nLet me look at the API client to match its\"}},\"session",
+        "rate-limiting\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "rate-limiting\"}},\"session_id\":\"a2382b0a-dfdd-429a-bd06-76dfabd205bd\",\"parent_too",
+        "rate-limiting\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "under roughly 30 lines\\n\\nLet me look at the exist\"}},\"session_id\":\"73bd682e-776"
+      ],
+      "runs": 5,
+      "fire_rate": 0.6,
+      "decline_rate": 0.4,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the 429 handling by hand: catch the status, read Retry-After, sleep, re-issue.",
+      "should_trigger": true,
+      "FIRE": 3,
+      "DECLINE": 2,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "genuinely borderline \u2014 core retry loop is well under the 80-line bar\\n\\nLet me l",
+        "http-429-retry-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "http-retry-backoff\"}},\"session_id\":\"7126b92a-6c0c-4395-ab55-84cd66308c13\",\"paren",
+        "retry-backoff\"}},\"session_id\":\"6be87117-fc6d-411f-949f-c06ac645b254\",\"parent_too"
+      ],
+      "runs": 5,
+      "fire_rate": 0.6,
+      "decline_rate": 0.4,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the outbound HTTP layer by hand: a per-host token counter, a Retry-After sleep, and a shared session pool.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "out\"}},\"session_id\":\"fdf5ea7b-2af1-4a0d-9864-54ab9f6f9d09\",\"parent_tool_use_id\":",
+        "outbound-http-client (rate limiting, retry/backoff, connection pooling)\"}],\"stop",
+        "outbound HTTP client resilience (per-host rate limiting, Retry-After backoff, co",
+        "http-client-rate-limiting\"}},\"session_id\":\"cc815735-db74-4ee5-b7ec-edba9b514dbf\"",
+        "out\"}},\"session_id\":\"00ce8fe0-b503-4508-9df3-45e0dec3fa0b\",\"parent_tool_use_id\":"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the tokio retry by hand: a loop, tokio::time::sleep, and a deadline check.",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "genuinely borderline \u2014 you've already chosen hand-rolled, and a loop + sleep + d",
+        "user\"}},\"session_id\":\"e531df15-9962-4e51-bd62-b06f3896bf6c\",\"parent_tool_use_id\"",
+        "under-30\"}},\"session_id\":\"bda6336b-f68d-46fe-a2a8-79e8684e0ef3\",\"parent_tool_use",
+        "\u2014\"}},\"session_id\":\"9b41d7e7-d1ad-4ec0-b2ca-d47aff48f9cc\",\"parent_tool_use_id\":nu"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the async retry by hand in Rust: loop, sleep with a doubling delay, return on success.",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "\u2014 well under the 80-line bar (~35 lines); only the probl\"}},\"session_id\":\"779627",
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "under-30-lines\\n\\n```rust\\nuse std::future::Future;\\nuse std::time::Duration;\\n\\",
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "under-30-lines / user explicitly asked for a hand-written implementation\\n\\n```r"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the retry for the Rust worker's fallible task by hand: a loop with backoff, a deadline, and careful cancel handling.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry-with-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nul",
+        "retry-with-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nul",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry-backoff\"}},\"session_id\":\"de9522dd-d75c-4c5a-bacc-89b924ffeebe\",\"parent_too",
+        "session_id\":\"a27b23ce-a74a-4e8a-bff5-f324d60ac615\",\"parent_tool_use_id\":null,\"uu"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the CSV row parser by hand: split the fields, convert the types, push errors into a vec.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "csv-parsing\"}},\"session_id\":\"0ea11dea-cbe8-4990-a7ed-81efd6b53ef3\",\"parent_tool_",
+        "csv-parsing\"}},\"session_id\":\"25685040-8a27-4e1b-bcff-dab014584c5d\",\"parent_tool_",
+        "csv-parsing\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usag",
+        "csv-parsing\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usag",
+        "csv-\"}},\"session_id\":\"4fd39ef4-34dc-4210-b60a-7ddfae6cebeb\",\"parent_tool_use_id\""
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the CSV parsing in Rust by hand: read the lines, split on commas, build the struct.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "csv-parsing\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usag",
+        "csv-parsing\"}},\"session_id\":\"7c749ff6-4833-42ec-8127-06000a9ebd66\",\"parent_tool_",
+        "csv-parsing\"}},\"session_id\":\"b3b5a990-259d-4562-ac56-a03da5785df7\",\"parent_tool_",
+        "csv-parsing\"}},\"session_id\":\"1ab02c37-27c7-4999-b254-8a8c0c5d4216\",\"parent_tool_",
+        "csv-parsing\"}},\"session_id\":\"15cc2913-a866-4aaa-a238-340f05a94e03\",\"parent_tool_"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Write the importer by hand: read the vendor CSV line by line, split the fields, build each struct, and collect per-row errors.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "csv-parsing\"}},\"session_id\":\"b5d97404-7848-42e2-8797-902510a1225c\",\"parent_tool_",
+        "csv-parsing\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usag",
+        "csv-parsing\"}},\"session_id\":\"983df3b7-b03f-4b90-950e-7c153b7853b4\",\"parent_tool_",
+        "csv-parsing\"}},\"session_id\":\"9db02330-04c3-48f3-8f47-5e6b60f8e699\",\"parent_tool_",
+        "csv-parsing\"}},\"session_id\":\"01782f63-5396-4169-bba3-c79413da1cea\",\"parent_tool_"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+setup check: OK
+project: /tmp/kosha_g2_v93ufwmg
+live probe 1/3: FIRE
+[1/100] FIRE  retry w/ jitter on the upload path
+[2/100] FIRE  retry w/ jitter on the upload path
+[3/100] FIRE  retry w/ jitter on the upload path
+[4/100] FIRE  retry w/ jitter on the upload path
+[5/100] FIRE  retry w/ jitter on the upload path
+[6/100] FIRE  add retry logic with backoff to the ingest clien
+[7/100] ABSENT  add retry logic with backoff to the ingest clien
+[8/100] ABSENT  add retry logic with backoff to the ingest clien
+[9/100] ABSENT  add retry logic with backoff to the ingest clien
+[10/100] ABSENT  The ingest client fails intermittently against t
+[11/100] ABSENT  add retry logic with backoff to the ingest clien
+[12/100] ABSENT  The ingest client fails intermittently against t
+[13/100] ABSENT  The ingest client fails intermittently against t
+[14/100] ABSENT  The ingest client fails intermittently against t
+[15/100] ABSENT  The ingest client fails intermittently against t
+[16/100] ABSENT  add structured retry around the S3 client calls
+[17/100] ABSENT  add structured retry around the S3 client calls
+[18/100] ABSENT  add structured retry around the S3 client calls
+[19/100] ABSENT  add structured retry around the S3 client calls
+[20/100] ABSENT  add structured retry around the S3 client calls
+[21/100] ABSENT  cli config layering
+[22/100] ABSENT  cli config layering
+[23/100] ABSENT  cli config layering
+[24/100] ABSENT  cli config layering
+[25/100] ABSENT  cli config layering
+[26/100] ABSENT  build a CLI with flags, env vars, and a config f
+[27/100] ABSENT  build a CLI with flags, env vars, and a config f
+[28/100] ABSENT  build a CLI with flags, env vars, and a config f
+[29/100] ABSENT  build a CLI with flags, env vars, and a config f
+[30/100] ABSENT  build a CLI with flags, env vars, and a config f
+[31/100] ABSENT  Planning the entrypoint: command-line flags over
+[32/100] ABSENT  Planning the entrypoint: command-line flags over
+[33/100] ABSENT  Planning the entrypoint: command-line flags over
+[34/100] ABSENT  Planning the entrypoint: command-line flags over
+[35/100] ABSENT  Planning the entrypoint: command-line flags over
+[36/100] ABSENT  validate the dataframe schema before we load it
+[37/100] ABSENT  validate the dataframe schema before we load it
+[38/100] ABSENT  validate the dataframe schema before we load it
+[39/100] ABSENT  validate the dataframe schema before we load it
+[40/100] ABSENT  validate the dataframe schema before we load it
+[41/100] ABSENT  column type, nullability and range checks on the
+[42/100] ABSENT  column type, nullability and range checks on the
+[43/100] ABSENT  column type, nullability and range checks on the
+[44/100] ABSENT  column type, nullability and range checks on the
+[45/100] ABSENT  column type, nullability and range checks on the
+[46/100] ABSENT  Before ingest we need to check the incoming tabl
+[47/100] ABSENT  Before ingest we need to check the incoming tabl
+[48/100] ABSENT  Before ingest we need to check the incoming tabl
+[49/100] ABSENT  Before ingest we need to check the incoming tabl
+[50/100] ABSENT  Before ingest we need to check the incoming tabl
+[51/100] ABSENT  we need schema validation on the parquet input b
+[52/100] ABSENT  we need schema validation on the parquet input b
+[53/100] ABSENT  we need schema validation on the parquet input b
+[54/100] ABSENT  we need schema validation on the parquet input b
+[55/100] ABSENT  add per-host rate limiting to the API client
+[56/100] ABSENT  we need schema validation on the parquet input b
+[57/100] ABSENT  add per-host rate limiting to the API client
+[58/100] ABSENT  add per-host rate limiting to the API client
+[59/100] ABSENT  add per-host rate limiting to the API client
+[60/100] ABSENT  add per-host rate limiting to the API client
+[61/100] ABSENT  http client that respects Retry-After on 429
+[62/100] ABSENT  http client that respects Retry-After on 429
+[63/100] ABSENT  http client that respects Retry-After on 429
+[64/100] ABSENT  http client that respects Retry-After on 429
+[65/100] ABSENT  http client that respects Retry-After on 429
+[66/100] ABSENT  Designing the outbound HTTP layer: per-host rate
+[67/100] ABSENT  Designing the outbound HTTP layer: per-host rate
+[68/100] ABSENT  Designing the outbound HTTP layer: per-host rate
+[69/100] ABSENT  Designing the outbound HTTP layer: per-host rate
+[70/100] ABSENT  Designing the outbound HTTP layer: per-host rate
+[71/100] ABSENT  tokio retry with a deadline
+[72/100] ABSENT  tokio retry with a deadline
+[73/100] ABSENT  tokio retry with a deadline
+[74/100] ABSENT  tokio retry with a deadline
+[75/100] ABSENT  tokio retry with a deadline
+[76/100] ABSENT  retry this async task with exponential backoff i
+[77/100] ABSENT  retry this async task with exponential backoff i
+[78/100] ABSENT  retry this async task with exponential backoff i
+[79/100] ABSENT  retry this async task with exponential backoff i
+[80/100] ABSENT  retry this async task with exponential backoff i
+[81/100] ABSENT  In the Rust worker the fallible task needs retry
+[82/100] ABSENT  In the Rust worker the fallible task needs retry
+[83/100] ABSENT  In the Rust worker the fallible task needs retry
+[84/100] ABSENT  In the Rust worker the fallible task needs retry
+[85/100] ABSENT  In the Rust worker the fallible task needs retry
+[86/100] ABSENT  csv to typed structs with per-row errors
+[87/100] ABSENT  csv to typed structs with per-row errors
+[88/100] ABSENT  csv to typed structs with per-row errors
+[89/100] ABSENT  csv to typed structs with per-row errors
+[90/100] ABSENT  csv to typed structs with per-row errors
+[91/100] ABSENT  parse this CSV into typed structs in Rust
+[92/100] ABSENT  parse this CSV into typed structs in Rust
+[93/100] ABSENT  parse this CSV into typed structs in Rust
+[94/100] ABSENT  parse this CSV into typed structs in Rust
+[95/100] ABSENT  parse this CSV into typed structs in Rust
+[96/100] ABSENT  The Rust importer reads a vendor CSV and needs e
+[97/100] ABSENT  The Rust importer reads a vendor CSV and needs e
+[98/100] ABSENT  The Rust importer reads a vendor CSV and needs e
+[99/100] ABSENT  The Rust importer reads a vendor CSV and needs e
+[100/100] ABSENT  The Rust importer reads a vendor CSV and needs e
+
+must-fire.json: FIRE 6  DECLINE 0  ABSENT 94  ERROR 0  (of 100 runs)
+  F5/D0/A0/E0  retry w/ jitter on the upload path
+  F1/D0/A4/E0  add retry logic with backoff to the ingest client
+  F0/D0/A5/E0  The ingest client fails intermittently against the upstream 
+  F0/D0/A5/E0  add structured retry around the S3 client calls
+  F0/D0/A5/E0  cli config layering
+  F0/D0/A5/E0  build a CLI with flags, env vars, and a config file, in that
+  F0/D0/A5/E0  Planning the entrypoint: command-line flags override environ
+  F0/D0/A5/E0  validate the dataframe schema before we load it
+  F0/D0/A5/E0  column type, nullability and range checks on the input table
+  F0/D0/A5/E0  Before ingest we need to check the incoming table: column ty
+  F0/D0/A5/E0  we need schema validation on the parquet input before the tr
+  F0/D0/A5/E0  add per-host rate limiting to the API client
+  F0/D0/A5/E0  http client that respects Retry-After on 429
+  F0/D0/A5/E0  Designing the outbound HTTP layer: per-host rate limits so w
+  F0/D0/A5/E0  tokio retry with a deadline
+  F0/D0/A5/E0  retry this async task with exponential backoff in Rust
+  F0/D0/A5/E0  In the Rust worker the fallible task needs retrying with exp
+  F0/D0/A5/E0  csv to typed structs with per-row errors
+  F0/D0/A5/E0  parse this CSV into typed structs in Rust
+  F0/D0/A5/E0  The Rust importer reads a vendor CSV and needs each row dese

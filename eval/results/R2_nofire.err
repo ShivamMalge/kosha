@@ -1,0 +1,6 @@
+setup check: OK
+project: /tmp/kosha_g2_ecbypei7
+live probe 1/3: ERROR (auth)
+live probe 2/3: ERROR (auth)
+live probe 3/3: ERROR (auth)
+LIVE PROBE FAILED 3x (last=ERROR) - instrument is not returning verdicts; not spending the batch.

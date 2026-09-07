@@ -37,7 +37,7 @@ Evaluate before loading anything else. A decline costs only this file.
 
 | # | Signal | Test |
 | --- | --- | --- |
-| **1** | **Size** | Estimated 80+ lines of non-trivial logic |
+| **1** | **Size** | The component would take roughly 80+ lines of non-trivial logic. **Judge by what the component must do, not by how much detail the request gives** — a terse request and a detailed one can describe the same component. Someone who has already decided how to build something writes tersely |
 | **2** | **Recognized problem class** | Names a known class: retry, backoff, rate limiting, parsing, serialization, validation, scheduling, concurrency primitives, protocol implementation, format handling, caching, diffing |
 | **3** | **Testability burden** | Would warrant its own test file rather than being covered incidentally |
 
