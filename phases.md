@@ -65,7 +65,7 @@ Every phase carries a **Stop here if** line. These are early kill points that fi
 **Goal.** `SKILL.md` fires correctly, with no catalog, no network, no scripts behind it.
 
 **Deliverables**
-- `SKILL.md`: frontmatter, the two-of-four rule, the never-fire list, the ambiguity rule (borderline → do not fire), and a stub where routing will later go.
+- `SKILL.md`: frontmatter, the **two-of-three** rule, the never-fire list, the ambiguity rule (borderline → do not fire), and a stub where routing will later go.
 - **Three eval-set JSON files** driven by `run_eval.py`, not hand-operated sessions. Each is a flat list of `{"query": "...", "should_trigger": bool}`. Expected verdicts are recorded *before* any run.
 - **Four holdout probes**, sealed (§ *Holdout* below).
 - **~4 mid-implementation probe sessions**, hand-operated (§ *F4.4* below).
@@ -100,7 +100,9 @@ So F4.4 gets **~4 hand-operated sessions**: each already several turns deep into
 
 The gate and the probes have the same author, and tuning the gate against probes that author wrote fits it to its own assumptions.
 
-**Four holdout probes, derived from real tasks in LightningParse, Verity, Batchbird, and Prahari** — actual planning steps from those repos, not invented scenarios. They are **sealed until the final tuning round** and are not inspected before then.
+**Four holdout probes, one per eligible repo** — derived from what each project actually resolved in shipped code, not invented scenarios. They are **sealed until the final round** and are not inspected before then.
+
+The source list changed after the graded-eligibility rule: **Verity and Prahari were excluded** (documentation only, no code), and the set became **LighteningParser, DevScout, Batchbird (grade B), swarm_drone_framework**. Provenance and per-probe independence weighting: `eval/results/HOLDOUT_PROVENANCE.md`.
 
 **The gate must separate the holdout on first exposure.** Tuning after the holdout is opened collapses it back into the fitted set and forfeits the only unbiased signal in P1.
 
@@ -110,7 +112,7 @@ The gate and the probes have the same author, and tuning the gate against probes
 - Every `borderline.json` query lands ≤ 0.2 or ≥ 0.8. A rate in between is a defect regardless of which verdict is right.
 - All ~4 mid-implementation sessions stay silent. **F4.4** — the only place it is exercised before P7.
 - The four holdout probes separate correctly **on first exposure**, with no tuning afterward.
-- Non-fire cost measured and at or under the **~246-token** compact-gate estimate (`architecture.md` §9). Early read on **F4.2**, re-based to 400 tokens once the hook stopped injecting the body every turn.
+- Non-fire cost measured and at or under **300 tokens** — `prd.md` **F4.2**. Measured cost is ~260 (compact gate 246 + verdict line ~14), so the bound carries ~15% headroom: enough for wording drift, not enough to absorb a regression.
 
 **Risk burned down.** The single assumption capable of making the whole design unwanted.
 
@@ -263,6 +265,9 @@ The line is between a decision **made** and a decision **described**. Documentat
 - **Prahari — excluded.** Five markdown files, zero code files. Documentation only, on its own evidence.
 - **Verity — excluded.** Not built; documentation suite, no code.
 - **Batchbird — grade B, eligible.** Working Rust with dependencies in actual use. Unfinished, which is irrelevant under a graded rule. It is **not** the Verity/Prahari case.
+- **Aakar — eligible (corrected 2026-09-07).** An earlier survey recorded "no manifest found" and excluded it. That was a **search-depth artifact**: `services/api/pyproject.toml` and `apps/web/package.json` sit at depth 4–5, and the survey searched to depth 3. 5,472 `.py` files. Added to the eligible pool.
+
+> **How the correction was found matters.** The manifests surfaced during holdout derivation — a task that was not a source-list decision. The finding is recorded here so the pool is correct, but the source list itself **stays parked**: a repo does not enter the seeding set as a side effect of some other task noticing it. P6 settles the list deliberately or not at all.
 
 Entries carry their source grade so a later reviewer can weigh a B-grade seed differently from an A-grade one without re-deriving where it came from.
 
@@ -376,7 +381,7 @@ Where each `prd.md` acceptance criterion is first exercised. Everything not reti
 | F4.1 no fire on trivia | P1 (`no-fire.json`, thr 0.01) | P7 (C2) |
 | F4.2 non-fire cost bound | P1 | P7 |
 | F4.3 always fires when it should | P1 (`must-fire.json`, thr 0.99) | P7 (T1–T6) |
-| F4.4 never fires mid-implementation | P1 (**~4 hand-operated sessions** — session state cannot be expressed in a `run_eval.py` eval set) | P7 |
+| F4.4 never fires mid-implementation | P1 — **4 hand-operated two-turn sessions, 4/4 pass**, each citing the timing clause explicitly. The same turn-2 requests fire at **87–100% in fresh context**, so the probe demonstrates *inversion under session state*, not merely silence. Session state cannot be expressed in a `run_eval.py` eval set | P7 |
 | F5.1 **primary** — LOC avoided | — | **P7 only** |
 | F5.2 hit cost bound | P4 | P7 (**conditional on P6.5** — needs ≥ 3 natural hits to be measurable) |
 | F5.3 miss cost and break-even | P5 | P7 |

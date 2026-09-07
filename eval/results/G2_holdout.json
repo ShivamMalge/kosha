@@ -1,0 +1,101 @@
+{
+  "eval_set": "holdout.json",
+  "runs_per_query": 5,
+  "gate_tokens_est": 244,
+  "summary": {
+    "queries": 4,
+    "total_runs": 20,
+    "FIRE": 20,
+    "DECLINE": 0,
+    "ABSENT": 0,
+    "ERROR": 0,
+    "errors": 0,
+    "wall_seconds": 180.0
+  },
+  "results": [
+    {
+      "query": "we need to pull the text and the page images out of a PDF before the OCR stage runs",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "pdf-text-and-image-extraction\"}},\"session_id\":\"05d95486-bcd9-4ae7-98c6-827f49dff",
+        "pdf-text-and-page-image-extraction\"}},\"session_id\":\"c18343eb-8346-44e1-a550-d024",
+        "pdf-text-and-page-image-extraction\"}],\"stop_reason\":null,\"stop_sequence\":null,\"s",
+        "pdf-text-and-page-image-extraction\"}],\"stop_reason\":null,\"stop_sequence\":null,\"s",
+        "p\"}},\"session_id\":\"3e05e42d-49ed-4848-bc1b-0d43538881d1\",\"parent_tool_use_id\":nu"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "the database schema keeps changing and we need versioned, reversible migrations generated from the models",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "schema-migration-generation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_det",
+        "database-schema-migrations\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_deta",
+        "database-schema-migrations\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_deta",
+        "database-schema-migrations\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_deta",
+        "database-schema-migrations\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_deta"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "take the incoming SQL text and turn it into an AST we can walk to build the query plan",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "sql-parsing\"}},\"session_id\":\"cb2818d7-9c01-4694-88b1-7f9591ace7a4\",\"parent_tool_",
+        "sql-parsing\"}},\"session_id\":\"2a292759-c083-4895-9c20-69e3e0fd7433\",\"parent_tool_",
+        "s\"}},\"session_id\":\"0466fea6-7d6c-461a-a0bd-2832b3036ac5\",\"parent_tool_use_id\":nu",
+        "sql-parsing\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usag",
+        "sql-parsing\"}},\"session_id\":\"37e187df-e199-4778-9835-4bdf01147ee2\",\"parent_tool_"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "tune the swarm's stability response when agents start dropping out, projecting each proposed action back into the safe envelope",
+      "should_trigger": false,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "swarm-consensus-control-with-safe-set-projection\"}},\"session_id\":\"899bf7a7-cdf8-",
+        "constrained-optimization / safe-set-projection for swarm control\"}],\"stop_reason",
+        "safe-set-projection-qp\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "constrained-control / projection onto safe set (swarm consensus stability filter",
+        "constrained-action projection (safety filter /\"}},\"session_id\":\"2f7ea72c-9bfa-4a"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    }
+  ]
+}

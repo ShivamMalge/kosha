@@ -1,0 +1,18 @@
+[
+  {
+    "query": "we need to pull the text and the page images out of a PDF before the OCR stage runs",
+    "should_trigger": true
+  },
+  {
+    "query": "the database schema keeps changing and we need versioned, reversible migrations generated from the models",
+    "should_trigger": true
+  },
+  {
+    "query": "take the incoming SQL text and turn it into an AST we can walk to build the query plan",
+    "should_trigger": true
+  },
+  {
+    "query": "tune the swarm's stability response when agents start dropping out, projecting each proposed action back into the safe envelope",
+    "should_trigger": false
+  }
+]
