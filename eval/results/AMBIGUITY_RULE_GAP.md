@@ -85,4 +85,4 @@ The borderline set was **built to be ambiguous**. A rule that is stable on clear
 
 That does not clear the bar for spending a threshold-rule round now. At P7 the same question can be asked against **real usage**, where the frequency of collisions is an observed property rather than a design choice of the probe set.
 
-**Both threshold-rule rounds remain unspent.**
+**Budget: 1 of 2 threshold-rule rounds spent** (round 1 failed; `R2_RESULTS.md`). One remains, and §1b is now the better-aimed target for it than anything in `BORDERLINE_GAP.md`.
