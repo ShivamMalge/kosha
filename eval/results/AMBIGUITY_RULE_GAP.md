@@ -1,4 +1,8 @@
-# Open item: the ambiguity rule is inoperative
+# Open item: safety defaults resolving against kosha's purpose
+
+> **Scope widened 2026-09-07.** This file began as "the ambiguity rule is inoperative." It now holds **one pattern observed three times**: a default that exists to make failure safe, resolving *against* kosha's purpose in precisely the situation kosha exists for. The original instance is §1; the second and third are §1b and §1c.
+
+# 1. The ambiguity rule is inoperative
 
 **Date:** 2026-09-07 · **Status:** OPEN, carried to **P7**. Not a proposal; no fix attempted.
 **Why it is filed separately:** it is not a clause-wording problem, and both candidate fixes for the borderline gap (C and D) leave it entirely untouched.
@@ -42,6 +46,38 @@ None of these is proposed; they are recorded so a future round starts from optio
 | **Accept it** | An unstable verdict on genuinely ambiguous input may be honest behaviour, and the ambiguity rule is retired as unenforceable rather than left as false comfort | Costs the safety asymmetry the rule was written to guarantee |
 
 The second is the cheapest and is diagnostic rather than corrective — it would let P7 measure how often real usage hits a collision, which is the number missing from this entire analysis.
+
+---
+
+# 1b. An unanswerable signal defaults toward DECLINE
+
+Threshold-rule round 1 (`R2_RESULTS.md`) established that **signal 1 is unanswerable from a terse request** — and the finding is stronger than "the gate estimated badly."
+
+`Write the retry-with-backoff loop by hand: while loop, doubling sleep, max attempts` **genuinely does not say** whether the result is 15 lines or 200. The information is not missed; **it is not there.** The gate is asked for a quantity the input does not contain.
+
+Facing that, it defaults toward **DECLINE** — and via `under roughly 30 lines`, a *hard veto* rather than a single vote (`R2_PAPER_CHECKS.md`: 59% of declines in the framed register).
+
+**That default is the ambiguity rule's safe direction, and here it does exactly the wrong thing.** The asymmetry was reasoned as: a missed fire costs the status quo, a false fire costs trust. It holds when the input is genuinely trivial. It inverts when the input is *underdetermined but the domain is not* — because "underdetermined and tersely phrased" is how someone writes **once they have already decided to hand-roll**, which is the case kosha exists to interrupt.
+
+So the safe default is most likely to fire exactly where being safe is most expensive.
+
+# 1c. The gate invents a deference clause
+
+**10% of declines in the framed register cite "the user explicitly asked for a hand-written implementation."** There is no such clause in the rule — not in the never-fire list, not in the three signals. The model supplied it.
+
+This is the same pattern in its purest form: a default toward deferring to the requester, applied at the moment the requester has stated the intent kosha exists to question. Unlike §1 and §1b it cannot be fixed by rewording an existing clause, because **there is no clause to reword.**
+
+---
+
+## The pattern, stated once
+
+| # | Default | Intended effect | Actual effect in kosha's own case |
+| --- | --- | --- | --- |
+| §1 | borderline → do not fire | avoid annoying false fires | never engages; ambiguity is invisible from inside one pass |
+| §1b | size unknown → treat as small | avoid firing on trivia | declines the terse hand-rolling request kosha targets |
+| §1c | user has decided → defer | respect the user's judgment | defers precisely when that judgment is the thing to question |
+
+Each is individually defensible. Together they describe a gate whose failure direction is **systematically toward silence in the situation it was built for.** No single clause rewrite addresses all three, which is why round 1 — aimed at one of them — moved zero of ten paired runs.
 
 ## Why P7 and not now
 

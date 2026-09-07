@@ -76,7 +76,7 @@ Evaluated inside `SKILL.md`, **before** `INDEX.md` loads, so a decline costs not
 
 | Signal | Threshold |
 | --- | --- |
-| **Size** | The component would take roughly 80+ lines of non-trivial logic. Judged from what the component must **do**, explicitly not from how much detail the request contains (threshold-rule round 1, `eval/results/R2_PREREG.md`) |
+| **Size** | The component is estimated at 80+ lines of non-trivial logic |
 | **Recognizable domain** | It names a known problem class: retry, backoff, rate limiting, parsing, serialization, validation, scheduling, concurrency primitives, protocol implementation, format handling, caching, diffing |
 | **Testability burden** | It would warrant its own test file rather than being covered incidentally |
 
