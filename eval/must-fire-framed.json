@@ -1,0 +1,82 @@
+[
+  {
+    "query": "Write the retry-with-jitter wrapper for the upload path by hand: a loop, a sleep, a randomized delay.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the retry-with-backoff loop for the ingest client by hand: while loop, doubling sleep, max attempts.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the retry handling for the ingest client by hand: a loop with exponential sleep, jitter, an attempt cap, and a check on which exception types to retry.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the retry wrapper around the S3 client calls by hand: catch, sleep, re-issue.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the CLI config layering by hand: read flags, then env, then file, merging in that order.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the CLI by hand: an argparse parser, an env lookup, a TOML read, and merge logic for precedence.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the entrypoint config resolution by hand: parse flags, read env, load the TOML, merge with flags winning, and hand-check the types.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the dataframe schema check by hand: loop the columns, assert the dtypes.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the column checks by hand: iterate the columns, check type, null count, and min/max.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the table validation by hand: loop the rows, check column types and ranges, track two cross-column conditions, and accumulate failures into a list.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the parquet schema check by hand before the transform step: read the schema, compare the field types.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the per-host rate limiter for the API client by hand: a dict of timestamps, a sleep before each call.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the 429 handling by hand: catch the status, read Retry-After, sleep, re-issue.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the outbound HTTP layer by hand: a per-host token counter, a Retry-After sleep, and a shared session pool.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the tokio retry by hand: a loop, tokio::time::sleep, and a deadline check.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the async retry by hand in Rust: loop, sleep with a doubling delay, return on success.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the retry for the Rust worker's fallible task by hand: a loop with backoff, a deadline, and careful cancel handling.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the CSV row parser by hand: split the fields, convert the types, push errors into a vec.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the CSV parsing in Rust by hand: read the lines, split on commas, build the struct.",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the importer by hand: read the vendor CSV line by line, split the fields, build each struct, and collect per-row errors.",
+    "should_trigger": true
+  }
+]

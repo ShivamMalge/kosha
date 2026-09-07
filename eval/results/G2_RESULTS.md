@@ -29,6 +29,12 @@ This is recorded with the same prominence the round-0 miss received. A pre-regis
 
 ---
 
+> ### SCOPE LIMIT on the 96% (added 2026-09-07)
+>
+> This figure was measured entirely on **planning-framed** phrasing — *"we need X"*, *"add X to Y"*. Reframed as implementation requests (*"Write the X by hand: …"*), the same twenty domains yield **54% FIRE / 44% DECLINE** (`FRAMING_RESULTS.md`).
+>
+> The 96% is not wrong; it describes a narrower condition than it appears to. **Quote both figures together** — the second is closer to how the failure kosha targets actually presents. Directive phrasing alone (*"Just write the code."*) costs little: 89%.
+
 ## must-fire — 100 runs
 
 `FIRE 96 · DECLINE 4 · ABSENT 0 · ERROR 0`
@@ -115,6 +121,7 @@ Both are instances of the pattern now recorded as a standing rule in `techstack.
 ## Threats
 
 - **Single-turn probes.** Every query is a fresh `claude -p` with no history — the cleanest possible condition. These numbers are an **upper bound** on rule quality, not an estimate of field behaviour.
+- **Framing sensitivity, measured and large.** 96% (planning-framed) → 89% (directive) → **54% (implementation-framed)**. The loss goes to DECLINE, not silence: the gate agrees with a stated intent to hand-roll. See `FRAMING_RESULTS.md`.
 - **Verdict-versus-behaviour is unmeasured.** Early termination scores on the verdict line; a model that emits `FIRE` and then ignores `SKILL.md` is indistinguishable from one that follows it.
 - **What the G1 instrument could not see.** Per `techstack.md` §6b clause 4, `run_eval.py`'s error count detects only `Popen` exceptions. It does **not** see non-zero exits (returncode is never inspected), anything on stderr (`stderr=DEVNULL`), timeouts (scored as silent non-triggers), or auth/quota failures delivered as assistant text. One failure class out of five. Every G1 figure in rounds 0 and 1 should be read with that in mind.
 
