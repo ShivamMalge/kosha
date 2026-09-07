@@ -108,3 +108,30 @@ live probe 1/3: FIRE
 [105/110] DECLINE  add a --verbose flag to the existing argparse pa
 [106/110] DECLINE  add a 20-line adapter between the store interfac
 [107/110] DECLINE  add a 20-line adapter between the store interfac
+[108/110] DECLINE  add a 20-line adapter between the store interfac
+[109/110] DECLINE  add a 20-line adapter between the store interfac
+[110/110] DECLINE  add a 20-line adapter between the store interfac
+
+no-fire.json: FIRE 5  DECLINE 105  ABSENT 0  ERROR 0  (of 110 runs)
+  F0/D5/A0/E0  write a helper to slug this title for the URL
+  F0/D5/A0/E0  slugify the post title
+  F0/D5/A0/E0  convert the heading into a url-safe string
+  F0/D5/A0/E0  make a small function that turns a title into a slug
+  F5/D0/A0/E0  we need url slugs from the article titles
+  F0/D5/A0/E0  rename this variable to something clearer
+  F0/D5/A0/E0  fix the typo in the error message
+  F0/D5/A0/E0  add a docstring to this method
+  F0/D5/A0/E0  reorder the imports
+  F0/D5/A0/E0  extract this block into its own function
+  F0/D5/A0/E0  wire the parser into the CLI entrypoint
+  F0/D5/A0/E0  pass the logger through to the worker
+  F0/D5/A0/E0  thread the request id into the log lines
+  F0/D5/A0/E0  move these constants into settings.py
+  F0/D5/A0/E0  add a field to this dataclass
+  F0/D5/A0/E0  convert the dict into our internal Record type
+  F0/D5/A0/E0  apply our late-fee rule: 1.5% after 30 days, waived for annu
+  F0/D5/A0/E0  compute the discount tier from our pricing table
+  F0/D5/A0/E0  swap requests for the httpx client we already depend on
+  F0/D5/A0/E0  we already use tenacity -- add retry to this one call
+  F0/D5/A0/E0  add a --verbose flag to the existing argparse parser
+  F0/D5/A0/E0  add a 20-line adapter between the store interface and the ne

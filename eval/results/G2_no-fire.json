@@ -1,0 +1,479 @@
+{
+  "eval_set": "no-fire.json",
+  "runs_per_query": 5,
+  "gate_tokens_est": 244,
+  "summary": {
+    "queries": 22,
+    "total_runs": 110,
+    "FIRE": 5,
+    "DECLINE": 105,
+    "ABSENT": 0,
+    "ERROR": 0,
+    "errors": 0,
+    "wall_seconds": 462.1
+  },
+  "results": [
+    {
+      "query": "write a helper to slug this title for the URL",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under roughly 30 lines\\n\\nLet me look at the project to match its conventions.\"}",
+        "under roughly 30 lines\\n\\nLet me look at the project to see what \\\"this title\\\" ",
+        "under roughly 30 lines\\n\\nLet me look at the project to see what \\\"this title\\\" ",
+        "under roughly 30 lines\\n\\nLet me look at the project to match its\"}},\"session_id",
+        "under roughly 30 lines\\n\\nLet me look at the project to find the title and match"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "slugify the post title",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under\"}},\"session_id\":\"1e81bbec-8b2a-4daa-b785-ddb7423fa177\",\"parent_tool_use_id",
+        "under roughly 30 lines\\n\\nLet me find the post title code.\"}},\"session_id\":\"cbf3",
+        "under roughly 30 lines\\n\\nThe working directory `\"}},\"session_id\":\"1b3939a9-4ea9",
+        "under-30-lines\\n\\nThe working directory `/tmp/kosha_g2_9vckcvyk` is empty \u2014 it c",
+        "under roughly 30 lines\\n\\nLet me look at the project to find the post title hand"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "convert the heading into a url-safe string",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under roughly 30 lines\\n\\nLet me look at the\"}},\"session_id\":\"91e528b3-c38f-4b71",
+        "under roughly 30 lines\\n\\nThere's no heading in the working directory \u2014 it's emp",
+        "under roughly 30 lines\\n\\nI need a bit more context \u2014 what heading, and in what ",
+        "under-30-lines\"}},\"session_id\":\"a8c9be49-9245-43ba-8571-fd7a0519ae5e\",\"parent_to",
+        "under roughly 30 lines\\n\\nI need a bit more context \u2014 what's the setup here?\\n\\n"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "make a small function that turns a title into a slug",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "under roughly 30 lines\"}},\"session_id\":\"8dbdc96c-7a7b-4ea5-a91d-4d23dbe1fe0a\",\"p",
+        "under roughly 30 lines\\n\\n```python\\nimport re\\nimport unicodedata\\n\\n\\ndef slug",
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\"",
+        "under roughly 30 lines\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\""
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "we need url slugs from the article titles",
+      "should_trigger": false,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "url-slug-generation\"}},\"session_id\":\"5d1a3ad1-c59a-4a09-b21f-66d2b2b81652\",\"pare",
+        "url-slug-generation\"}},\"session_id\":\"27697c5f-651d-487e-ae26-7797b56488f9\",\"pare",
+        "url-slug-generation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu",
+        "url-slug-generation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu",
+        "url-slug-generation\"}},\"session_id\":\"f72307eb-b1e4-408d-a5fc-d07e600026d6\",\"pare"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "rename this variable to something clearer",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "rename, reorder, extract \u2014 no new capability\"}},\"session_id\":\"22a9b4a9-b3c7-4d96",
+        "rename, reorder, extract \u2014 no new capability\\n\\nI don't see which variable you m",
+        "rename, reorder, extract, docstring, typo fix \u2014 no new capability\\n\\nWhich varia",
+        "rename, reorder, extract \u2014 no new capability\\n\\nWhich variable, and in which fil",
+        "rename, reorder, extract, docstring, typo fix \u2014 no new capability\\n\\nWhich varia"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "fix the typo in the error message",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "typo fix \u2014 no new capability\\n\\nI need to find the error message first. Let me l",
+        "typo fix \u2014 no new capability\\n\\nI need to find the error message first. Let me l",
+        "typo fix \u2014 no new capability\\n\\nLet me find the error message.\"}],\"stop_reason\":",
+        "typo fix \u2014 no new capability\\n\\nI need to find the error message first. Let me l",
+        "typo fix \u2014 no new capability\\n\\nI need to find the error message first. Let me l"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "add a docstring to this method",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "docstring \u2014 no new capability\\n\\nI need to know which method you mean. There's n",
+        "\u2014 docstring addition, no new capability.\\n\\nI don't see which method you mean \u2014 ",
+        "docstring \u2014 no new capability\\n\\nLet me find the method you're referring to.\"}],",
+        "docstring \u2014 no new capability\\n\\nI don't see which method you mean \u2014 no file is ",
+        "docstring \u2014 no new capability\\n\\nI need to know which method you mean. Could you"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "reorder the imports",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "rename, reorder, extract \u2014 no new capability\\n\\nLet me find\"}},\"session_id\":\"858",
+        "rename, reorder, extract \u2014 no new capability\\n\\nI need to know which file you'd ",
+        "reorder \u2014 no new capability\\n\\nI need to know which file's imports you'd like re",
+        "rename, reorder, extract, docstring, typo fix \u2014 no new capability\"}},\"session_id",
+        "rename, reorder, extract \u2014 no new capability\\n\\nI need to know which file you'd "
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "extract this block into its own function",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "\u2014 extract-only refactor, no new capability\\n\\nI don't see which block you mean \u2014",
+        "\u2014 rename, reorder, extract, docstring, typo fix \u2014 no new capability\\n\\nI need to",
+        "rename, reorder, extract \u2014 no new capability\\n\\nI need to know which block you m",
+        "rename, reorder, extract \u2014 no new capability\\n\\nI need to know which block you m",
+        "\u2014 rename, reorder, extract; no new capability\\n\\nI need to know which block you "
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "wire the parser into the CLI entrypoint",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "glue, wiring, config plumbing between existing things\\n\\nLet me look at the proj",
+        "glue, wiring, config plumbing between existing things\\n\\nLet me look at the proj",
+        "glue, wiring, config plumbing between existing things\\n\\nLet me look at the proj",
+        "glue, wiring, config plumbing\\n\\nLet me look at the project structure to find th",
+        "glue, wiring, config plumbing between existing things\\n\\nLet me look at the proj"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "pass the logger through to the worker",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "glue, wiring, config plumbing between existing things\\n\\nLet me find the worker ",
+        "glue, wiring, config plumbing between existing things\\n\\nLet me look at the code",
+        "\u2014 glue/wiring plumbing between existing things\\n\\nLet me look at the code first.",
+        "glue/wiring \u2014 passing an existing logger into a worker is config plumbing, not n",
+        "glue, wiring, config plumbing\\n\\nLet me look at the relevant code.\"}],\"stop_reas"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "thread the request id into the log lines",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "glue/plumbing \u2014 threading an existing value through log call sites, no new capab",
+        "glue, wiring, config plumbing\\n\\nLet me find the logging code first.\"}],\"stop_re",
+        "\u2014 glue/wiring, no new capability\\n\\nLet me look at the code first.\"}],\"stop_reas",
+        "\u2014 glue, wiring, config plumbing between existing things\\n\\nLet me look at the co",
+        "glue,\"}},\"session_id\":\"3520fa45-47b5-49fc-bcea-df5b23e9a9f6\",\"parent_tool_use_id"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "move these constants into settings.py",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "\u2014 rename/extract, no new capability\\n\\nI need to know which constants and which ",
+        "glue, wiring, config plumbing, or type shuffling between existing things\\n\\nI do",
+        "rename, reorder, extract \u2014 no new capability\"}],\"stop_reason\":null,\"stop_sequenc",
+        "glue, wiring, config pl\"}},\"session_id\":\"3a0449bb-ab9c-4f22-b92b-16ada141e5b3\",\"",
+        "rename, reorder, extract \u2014 no new capability\"}],\"stop_reason\":null,\"stop_sequenc"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "add a field to this dataclass",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "\u2014 adding a field to a dataclass is type shuffling with no new capability.\\n\\nWhi",
+        "\u2014 type shuffling / no new capability\\n\\nWhich dataclass, and what field? I don't",
+        "rename, reorder, extract \u2014 no new capability (\"}},\"session_id\":\"b2422950-c8eb-4a",
+        "\u2014 adding a field to a dataclass is type shuffling with no new capability.\\n\\nI d",
+        "\u2014 type shuffling between existing things (adding a field to a dataclass, no new "
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "convert the dict into our internal Record type",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "\u2014 type shuffling between existing things.\\n\\nI need a bit more to go on before I",
+        "glue, wiring, config plumbing, or type shuffling between existing things\\n\\nLet ",
+        "type shuffling between existing things\\n\\nI need a bit more context before I can",
+        "type shuffling between existing things\\n\\nI need to see the code first \u2014 which d",
+        "type shuffling between existing things\\n\\nI need to see the code first \u2014 which d"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "apply our late-fee rule: 1.5% after 30 days, waived for annual plans",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "project-specific business r\"}},\"session_id\":\"87f9a685-440a-49ad-9d81-f015bd708f2",
+        "project-specific business rules\\n\\nBefore I write anything: I don't have context",
+        "project-specific business rules\"}},\"session_id\":\"f8d9b444-7d8c-4403-83e5-70bdda5",
+        "project-specific business rules\\n\\nLet me look at the codebase to find where bil",
+        "project-specific business rules\\n\\nLet me look at the project to find where bill"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "compute the discount tier from our pricing table",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "project-specific business rules\\n\\nI need the pricing table before I can write t",
+        "project-specific business rules\\n\\nI don't have your pricing table yet \u2014 nothing",
+        "project-specific business rules\\n\\nI need to see the pricing table before I can ",
+        "project-specific business rules\\n\\nLet me find the pricing table.\"}},\"session_id",
+        "project-specific business rules\\n\\nLet me find the pricing table.\"}],\"stop_reaso"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "swap requests for the httpx client we already depend on",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "the project already depends on a library covering this domain\\n\\nLet me look at ",
+        "the project already depends on a library covering this domain\\n\\nLet me look at ",
+        "the project already depends on a library covering this domain\\n\\nLet me look at ",
+        "the project already depends on a library covering this domain\\n\\nLet me look at ",
+        "the project already depends on a library covering this domain\\n\\nLet me look at "
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "we already use tenacity -- add retry to this one call",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "project already depends on a library covering this domain (tenacity)\\n\\nLet me f",
+        "the project already depends on a library covering this domain\\n\\nLet me find the",
+        "project already depends on a library covering this domain (tenacity)\\n\\nLet me f",
+        "the project already depends on a library covering this domain\\n\\nLet me find the",
+        "project already depends on a library covering\"}},\"session_id\":\"b70523eb-46cb-4a7"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "add a --verbose flag to the existing argparse parser",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "glue, wiring, config plumbing \u2014 adding a single argparse flag\\n\\nLet me find the",
+        "\u2014 under roughly 30 lines; config plumbing with no new capability\\n\\nLet me find ",
+        "rename, reorder, extract \u2014 under roughly 30 lines of glue\\n\\nLet me find the par",
+        "glue, wiring, config plumbing \u2014 adding a single argparse flag\\n\\nLet me find the",
+        "glue, wiring, config plumbing\\n\\nLet me find the argparse parser.\"}],\"stop_reaso"
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "add a 20-line adapter between the store interface and the new backend",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 5,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "glue, wiring, config plumbing, or type shuffling between existing things\\n\\nBefo",
+        "under roughly 30 lines; glue/wiring between existing things\\n\\nLet me look at th",
+        "glue/wiring under 30 lines\\n\\nLet me look at the codebase to find the store inte",
+        "under ~30 lines;\"}},\"session_id\":\"271f3a04-75e9-48ca-93ab-f2bc474de567\",\"parent_",
+        "glue, wiring, config plumbing, or type shuffling between existing things\\n\\nLet "
+      ],
+      "runs": 5,
+      "fire_rate": 0.0,
+      "decline_rate": 1.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    }
+  ]
+}
