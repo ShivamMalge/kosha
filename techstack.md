@@ -185,6 +185,28 @@ And every batch reports its `ERROR` rate; above 20% the batch is void by default
 
 > **"Zero errors" has stopped meaning what it appears to mean.** It counts only subprocess exceptions. It does not count timeouts scored as non-triggers, blocked stdin, or authentication failures rendered as prose. Any claim resting on a zero error count must say which failures that count can actually see.
 
+### Clause 4 — audit an inherited runner's error accounting before trusting it
+
+**Before relying on a third-party runner's error counts, read what it does with stderr and with non-zero exits. Then state, in the results, which failure classes it can and cannot see.**
+
+`run_eval.py` sets `stderr=subprocess.DEVNULL`. The `no stdin data received in 3s` warning — the single string that diagnosed the same defect in the G2 runner in one `grep` — was discarded on all 420 calls of rounds 0 and 1. Those rounds were **structurally incapable** of surfacing it.
+
+That is a property of an inherited instrument, not a defect in code written here, and it is the more dangerous kind: nothing in the run looks wrong, because the evidence never reaches disk.
+
+#### What `run_eval.py` can and cannot see
+
+| Failure class | Visible? |
+| --- | --- |
+| `Popen` raises (binary missing, spawn failure) | **Yes** — counted as `query failed` |
+| Non-zero exit from `claude` | **No** — returncode is never inspected |
+| Anything written to stderr | **No** — `stderr=DEVNULL` |
+| Call exceeding the timeout | **No** — loop exits and returns `triggered=False`, a silent non-trigger |
+| Auth / quota / rate-limit failures delivered as assistant text | **No** — indistinguishable from a real non-trigger |
+
+So its error count sees exactly one failure class out of five. **"Zero errors across 420 calls" was true and nearly uninformative.**
+
+This audit belongs in the results document of any campaign that uses an inherited runner, not in a code comment — a reader judging the numbers needs to know what the instrument was blind to.
+
 ### Corollaries
 
 - **Record `returncode` and persist raw output for every run.** Batch 1's most costly gap was not the stdin bug but discarding the evidence that would have attributed it in seconds instead of after the fact.
