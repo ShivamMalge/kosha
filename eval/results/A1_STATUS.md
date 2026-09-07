@@ -1,4 +1,6 @@
-# A1 result status: UNRESOLVED — not evidence for F4.1
+# A1 result status: RESOLVED (weak) — superseded by P1_ROUND0.md
+
+> **Resolved 2026-09-06.** A2 fired on 4 queries / 6 runs, so the description can load the skill and the asymmetry below is restored. A1 is real evidence for F4.1 at G1, but **weak**: a description loading on 6% of its own must-fire set declines trivia near-unconditionally. **Re-run A1 after any description change** — widening to fix A2 is exactly what could break it.
 
 **Date:** 2026-09-06
 **Raw result:** 22/22 pass, every query 0/5, **0 subprocess failures across 110 calls**.

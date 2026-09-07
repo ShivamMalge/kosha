@@ -152,6 +152,39 @@ Instance 3 is the sharpest lesson: the runner deliberately separated `ABSENT` fr
 | **A/B runner** (`benchmark.md` §5) | One task × one arm × one rep produces a `grading.json` **and** a `timing.json` carrying a numeric non-zero `total_tokens` — this is Run 0 (§5.3), and the silent `output_chars` fallback is exactly this failure mode |
 | **Sidecar aggregator** | One `metrics.json` parses and its token buckets sum to `timing.json:total_tokens` |
 
+### Clause 2 — the probe must accept only a POSITIVE result
+
+**A probe passes only on the artifact the batch parses. "Not an error" is not a pass.**
+
+The G2 no-fire set was cleared to spend 110 calls by a probe that returned `ABSENT` — the runner refused only on `ERROR`, and `ABSENT` looked survivable. It was not: the instrument was dead. The probe query is a known 5/5 `FIRE` case, so the only acceptable probe results are `FIRE` or `DECLINE`.
+
+Generalized: if the batch's purpose is to collect X, the probe must produce an X. A probe that merely fails to crash proves nothing.
+
+### Clause 3 — infrastructure failures arrive as valid, successful output
+
+**Exit code and non-emptiness are not evidence of a real result.**
+
+Three times now a failure has arrived with **exit 0 and no error count**:
+
+| Failure | How it presented |
+| --- | --- |
+| Missing `claude` binary | Well-formed JSON, 22/22 pass |
+| Stdin block | Clean stream, `ABSENT` |
+| **Expired OAuth** | A normal assistant message, exit 0, `ABSENT` — `"Failed to authenticate: OAuth session expired and could not be refreshed"` |
+
+The third is the sharpest: an auth failure is delivered *as model output*. Every structural check passes, because structurally nothing is wrong.
+
+So every runner scans the response body for infrastructure strings and classifies them as `ERROR`, never as a negative outcome:
+
+```
+failed to authenticate | oauth session expired | invalid api key
+rate limit | usage limit | insufficient credit | overloaded
+```
+
+And every batch reports its `ERROR` rate; above 20% the batch is void by default rather than by judgment.
+
+> **"Zero errors" has stopped meaning what it appears to mean.** It counts only subprocess exceptions. It does not count timeouts scored as non-triggers, blocked stdin, or authentication failures rendered as prose. Any claim resting on a zero error count must say which failures that count can actually see.
+
 ### Corollaries
 
 - **Record `returncode` and persist raw output for every run.** Batch 1's most costly gap was not the stdin bug but discarding the evidence that would have attributed it in seconds instead of after the fact.
@@ -170,8 +203,17 @@ The `UserPromptSubmit` injection path has a **silent** failure mode: an open rep
 | VS Code | **1.136.1** (commit `a44adf7f53e0`) |
 | Claude Code VS Code extension | **anthropic.claude-code-2.1.263-win32-x64** (2.1.261 also present) |
 | Claude Code CLI (WSL Ubuntu) | **2.1.263** |
+| WSL authentication | **`claude setup-token`** (long-lived), NOT copied credentials |
 | OS | Windows 11 Home Single Language 10.0.26200 / WSL2 Ubuntu |
 | Node (WSL, nvm) | v24.20.0, npm 11.19.0 |
+
+### Authentication: WSL holds its own session
+
+WSL authentication was originally bootstrapped by **copying `.credentials.json` from the Windows side**. That was expedient and it failed twice — the copied session is not refreshable from WSL, so it silently expires mid-campaign and every subsequent call returns an auth error *as ordinary model output* (Clause 3). It voided a 110-run batch.
+
+The durable fix is a **WSL-native long-lived token**: `claude setup-token`, run once in an interactive WSL terminal. `/login` is unavailable non-interactively, so this cannot be automated from an agent session.
+
+Copying credentials from Windows is **deprecated** — it is a stopgap that reintroduces a known silent failure mode, not a supported configuration.
 
 **Re-run the sentinel test after any of these change.** `hooks/sentinel_hook.py` plus `hooks/sentinel_runs.log` reproduce the check in about a minute, and the log is what distinguishes "injection dropped" from "hook never ran" — the distinction that makes a negative result diagnosable instead of merely alarming.
 

@@ -1,0 +1,80 @@
+{
+  "eval_set": "borderline.json",
+  "recovered_from": "progress log (run killed before JSON write)",
+  "runs_recovered": 115,
+  "runs_planned": 120,
+  "results": [
+    {
+      "query": "write a helper that expands a date range into buckets, handling DST transitions and timezone-aware boundaries",
+      "FIRE": 15,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 15,
+      "fire_rate": 1.0
+    },
+    {
+      "query": "implement the order state machine: six states, guarded transitions, and an audit trail",
+      "FIRE": 9,
+      "DECLINE": 6,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 15,
+      "fire_rate": 0.6
+    },
+    {
+      "query": "merge three layers of our own config format with per-key override rules",
+      "FIRE": 11,
+      "DECLINE": 4,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 15,
+      "fire_rate": 0.7333333333333333
+    },
+    {
+      "query": "parse the vendor's semi-structured log lines into events",
+      "FIRE": 15,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 15,
+      "fire_rate": 1.0
+    },
+    {
+      "query": "add a small LRU cache in front of the metadata lookups",
+      "FIRE": 0,
+      "DECLINE": 15,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 15,
+      "fire_rate": 0.0
+    },
+    {
+      "query": "compute a stable content hash across nested dicts with unordered keys",
+      "FIRE": 15,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 15,
+      "fire_rate": 1.0
+    },
+    {
+      "query": "implement retry for exactly one call site, about 25 lines, no jitter needed",
+      "FIRE": 0,
+      "DECLINE": 15,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 15,
+      "fire_rate": 0.0
+    },
+    {
+      "query": "normalize unicode in user-supplied display names before comparison",
+      "FIRE": 6,
+      "DECLINE": 4,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "runs": 10,
+      "fire_rate": 0.6
+    }
+  ]
+}

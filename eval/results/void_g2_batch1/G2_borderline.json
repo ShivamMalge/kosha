@@ -1,0 +1,120 @@
+{
+  "eval_set": "borderline.json",
+  "runs_per_query": 15,
+  "gate_tokens_est": 244,
+  "summary": {
+    "queries": 8,
+    "total_runs": 120,
+    "FIRE": 0,
+    "DECLINE": 0,
+    "ABSENT": 120,
+    "errors": 0,
+    "wall_seconds": 305.9
+  },
+  "results": [
+    {
+      "query": "write a helper that expands a date range into buckets, handling DST transitions and timezone-aware boundaries",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    },
+    {
+      "query": "implement the order state machine: six states, guarded transitions, and an audit trail",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    },
+    {
+      "query": "merge three layers of our own config format with per-key override rules",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    },
+    {
+      "query": "parse the vendor's semi-structured log lines into events",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    },
+    {
+      "query": "add a small LRU cache in front of the metadata lookups",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    },
+    {
+      "query": "compute a stable content hash across nested dicts with unordered keys",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    },
+    {
+      "query": "implement retry for exactly one call site, about 25 lines, no jitter needed",
+      "should_trigger": false,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    },
+    {
+      "query": "normalize unicode in user-supplied display names before comparison",
+      "should_trigger": true,
+      "FIRE": 0,
+      "DECLINE": 0,
+      "ABSENT": 15,
+      "errors": 0,
+      "details": [],
+      "runs": 15,
+      "fire_rate": 0.0,
+      "decline_rate": 0.0,
+      "absent_rate": 1.0
+    }
+  ]
+}

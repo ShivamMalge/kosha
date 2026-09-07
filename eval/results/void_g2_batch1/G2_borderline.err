@@ -1,0 +1,12 @@
+setup check: OK
+project: /tmp/kosha_g2_y7ax0djr
+
+borderline.json: FIRE 0  DECLINE 0  ABSENT 120  errors 0  (of 120 runs)
+  F0/D0/A15  write a helper that expands a date range into buckets, handl
+  F0/D0/A15  implement the order state machine: six states, guarded trans
+  F0/D0/A15  merge three layers of our own config format with per-key ove
+  F0/D0/A15  parse the vendor's semi-structured log lines into events
+  F0/D0/A15  add a small LRU cache in front of the metadata lookups
+  F0/D0/A15  compute a stable content hash across nested dicts with unord
+  F0/D0/A15  implement retry for exactly one call site, about 25 lines, n
+  F0/D0/A15  normalize unicode in user-supplied display names before comp

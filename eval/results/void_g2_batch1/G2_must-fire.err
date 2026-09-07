@@ -1,0 +1,24 @@
+setup check: OK
+project: /tmp/kosha_g2_ll5t14bk
+
+must-fire.json: FIRE 6  DECLINE 1  ABSENT 93  errors 4  (of 100 runs)
+  F0/D0/A5  retry w/ jitter on the upload path
+  F2/D0/A3  add retry logic with backoff to the ingest client
+  F0/D0/A5  The ingest client fails intermittently against the upstream 
+  F4/D0/A1  add structured retry around the S3 client calls
+  F0/D1/A4  cli config layering
+  F0/D0/A5  build a CLI with flags, env vars, and a config file, in that
+  F0/D0/A5  Planning the entrypoint: command-line flags override environ
+  F0/D0/A5  validate the dataframe schema before we load it
+  F0/D0/A5  column type, nullability and range checks on the input table
+  F0/D0/A5  Before ingest we need to check the incoming table: column ty
+  F0/D0/A5  we need schema validation on the parquet input before the tr
+  F0/D0/A5  add per-host rate limiting to the API client
+  F0/D0/A5  http client that respects Retry-After on 429
+  F0/D0/A5  Designing the outbound HTTP layer: per-host rate limits so w
+  F0/D0/A5  tokio retry with a deadline
+  F0/D0/A5  retry this async task with exponential backoff in Rust
+  F0/D0/A5  In the Rust worker the fallible task needs retrying with exp
+  F0/D0/A5  csv to typed structs with per-row errors
+  F0/D0/A5  parse this CSV into typed structs in Rust
+  F0/D0/A5  The Rust importer reads a vendor CSV and needs each row dese

@@ -1,0 +1,19 @@
+{
+  "skill_name": "kosha",
+  "description": "Check whether a library already solves a component before writing it, during PLANNING only. Use when a plan step proposes building something substantial that a package likely already does - retry with backoff, rate limiting, CLI flag and config layering, schema or tabular validation, parsing and serialization, scheduling, caching, protocol or format handling. Requires at least two of - roughly 80+ lines of non-trivial logic, a recognized problem class, would warrant its own test file. Do NOT use for - anything under ~30 lines, glue and wiring, config plumbing, type conversion, renaming or refactoring, project-specific business rules, a domain the project already depends on a library for, or any point after implementation has started. When borderline, do not use.",
+  "results": [
+    {
+      "query": "add retry logic with backoff to the ingest client",
+      "should_trigger": true,
+      "trigger_rate": 0.0,
+      "triggers": 0,
+      "runs": 1,
+      "pass": false
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1
+  }
+}

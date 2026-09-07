@@ -1,0 +1,137 @@
+setup check: OK
+project: /tmp/kosha_g2_l66orqsn
+live probe 1/3: ABSENT
+[1/110] ABSENT  write a helper to slug this title for the URL
+[2/110] ABSENT  write a helper to slug this title for the URL
+[3/110] ABSENT  write a helper to slug this title for the URL
+[4/110] ABSENT  write a helper to slug this title for the URL
+[5/110] ABSENT  write a helper to slug this title for the URL
+[6/110] ABSENT  slugify the post title
+[7/110] ABSENT  slugify the post title
+[8/110] ABSENT  slugify the post title
+[9/110] ABSENT  slugify the post title
+[10/110] ABSENT  slugify the post title
+[11/110] ABSENT  convert the heading into a url-safe string
+[12/110] ABSENT  convert the heading into a url-safe string
+[13/110] ABSENT  convert the heading into a url-safe string
+[14/110] ABSENT  convert the heading into a url-safe string
+[15/110] ABSENT  convert the heading into a url-safe string
+[16/110] ABSENT  make a small function that turns a title into a 
+[17/110] ABSENT  make a small function that turns a title into a 
+[18/110] ABSENT  make a small function that turns a title into a 
+[19/110] ABSENT  make a small function that turns a title into a 
+[20/110] ABSENT  make a small function that turns a title into a 
+[21/110] ABSENT  we need url slugs from the article titles
+[22/110] ABSENT  we need url slugs from the article titles
+[23/110] ABSENT  we need url slugs from the article titles
+[24/110] ABSENT  we need url slugs from the article titles
+[25/110] ABSENT  we need url slugs from the article titles
+[26/110] ABSENT  rename this variable to something clearer
+[27/110] ABSENT  rename this variable to something clearer
+[28/110] ABSENT  rename this variable to something clearer
+[29/110] ABSENT  rename this variable to something clearer
+[30/110] ABSENT  rename this variable to something clearer
+[31/110] ABSENT  fix the typo in the error message
+[32/110] ABSENT  fix the typo in the error message
+[33/110] ABSENT  fix the typo in the error message
+[34/110] ABSENT  fix the typo in the error message
+[35/110] ABSENT  fix the typo in the error message
+[36/110] ABSENT  add a docstring to this method
+[37/110] ABSENT  add a docstring to this method
+[38/110] ABSENT  add a docstring to this method
+[39/110] ABSENT  add a docstring to this method
+[40/110] ABSENT  add a docstring to this method
+[41/110] ABSENT  reorder the imports
+[42/110] ABSENT  reorder the imports
+[43/110] ABSENT  reorder the imports
+[44/110] ABSENT  reorder the imports
+[45/110] ABSENT  reorder the imports
+[46/110] ABSENT  extract this block into its own function
+[47/110] ABSENT  extract this block into its own function
+[48/110] ABSENT  extract this block into its own function
+[49/110] ABSENT  extract this block into its own function
+[50/110] ABSENT  extract this block into its own function
+[51/110] ABSENT  wire the parser into the CLI entrypoint
+[52/110] ABSENT  wire the parser into the CLI entrypoint
+[53/110] ABSENT  wire the parser into the CLI entrypoint
+[54/110] ABSENT  wire the parser into the CLI entrypoint
+[55/110] ABSENT  wire the parser into the CLI entrypoint
+[56/110] ABSENT  pass the logger through to the worker
+[57/110] ABSENT  pass the logger through to the worker
+[58/110] ABSENT  pass the logger through to the worker
+[59/110] ABSENT  pass the logger through to the worker
+[60/110] ABSENT  pass the logger through to the worker
+[61/110] ABSENT  thread the request id into the log lines
+[62/110] ABSENT  thread the request id into the log lines
+[63/110] ABSENT  thread the request id into the log lines
+[64/110] ABSENT  thread the request id into the log lines
+[65/110] ABSENT  thread the request id into the log lines
+[66/110] ABSENT  move these constants into settings.py
+[67/110] ABSENT  move these constants into settings.py
+[68/110] ABSENT  move these constants into settings.py
+[69/110] ABSENT  move these constants into settings.py
+[70/110] ABSENT  move these constants into settings.py
+[71/110] ABSENT  add a field to this dataclass
+[72/110] ABSENT  add a field to this dataclass
+[73/110] ABSENT  add a field to this dataclass
+[74/110] ABSENT  add a field to this dataclass
+[75/110] ABSENT  add a field to this dataclass
+[76/110] ABSENT  convert the dict into our internal Record type
+[77/110] ABSENT  convert the dict into our internal Record type
+[78/110] ABSENT  convert the dict into our internal Record type
+[79/110] ABSENT  convert the dict into our internal Record type
+[80/110] ABSENT  convert the dict into our internal Record type
+[81/110] ABSENT  apply our late-fee rule: 1.5% after 30 days, wai
+[82/110] ABSENT  apply our late-fee rule: 1.5% after 30 days, wai
+[83/110] ABSENT  apply our late-fee rule: 1.5% after 30 days, wai
+[84/110] ABSENT  apply our late-fee rule: 1.5% after 30 days, wai
+[85/110] ABSENT  apply our late-fee rule: 1.5% after 30 days, wai
+[86/110] ABSENT  compute the discount tier from our pricing table
+[87/110] ABSENT  compute the discount tier from our pricing table
+[88/110] ABSENT  compute the discount tier from our pricing table
+[89/110] ABSENT  compute the discount tier from our pricing table
+[90/110] ABSENT  compute the discount tier from our pricing table
+[91/110] ABSENT  swap requests for the httpx client we already de
+[92/110] ABSENT  swap requests for the httpx client we already de
+[93/110] ABSENT  swap requests for the httpx client we already de
+[94/110] ABSENT  swap requests for the httpx client we already de
+[95/110] ABSENT  swap requests for the httpx client we already de
+[96/110] ABSENT  we already use tenacity -- add retry to this one
+[97/110] ABSENT  we already use tenacity -- add retry to this one
+[98/110] ABSENT  we already use tenacity -- add retry to this one
+[99/110] ABSENT  we already use tenacity -- add retry to this one
+[100/110] ABSENT  we already use tenacity -- add retry to this one
+[101/110] ABSENT  add a --verbose flag to the existing argparse pa
+[102/110] ABSENT  add a --verbose flag to the existing argparse pa
+[103/110] ABSENT  add a --verbose flag to the existing argparse pa
+[104/110] ABSENT  add a --verbose flag to the existing argparse pa
+[105/110] ABSENT  add a --verbose flag to the existing argparse pa
+[106/110] ABSENT  add a 20-line adapter between the store interfac
+[107/110] ABSENT  add a 20-line adapter between the store interfac
+[108/110] ABSENT  add a 20-line adapter between the store interfac
+[109/110] ABSENT  add a 20-line adapter between the store interfac
+[110/110] ABSENT  add a 20-line adapter between the store interfac
+
+no-fire.json: FIRE 0  DECLINE 0  ABSENT 110  ERROR 0  (of 110 runs)
+  F0/D0/A5/E0  write a helper to slug this title for the URL
+  F0/D0/A5/E0  slugify the post title
+  F0/D0/A5/E0  convert the heading into a url-safe string
+  F0/D0/A5/E0  make a small function that turns a title into a slug
+  F0/D0/A5/E0  we need url slugs from the article titles
+  F0/D0/A5/E0  rename this variable to something clearer
+  F0/D0/A5/E0  fix the typo in the error message
+  F0/D0/A5/E0  add a docstring to this method
+  F0/D0/A5/E0  reorder the imports
+  F0/D0/A5/E0  extract this block into its own function
+  F0/D0/A5/E0  wire the parser into the CLI entrypoint
+  F0/D0/A5/E0  pass the logger through to the worker
+  F0/D0/A5/E0  thread the request id into the log lines
+  F0/D0/A5/E0  move these constants into settings.py
+  F0/D0/A5/E0  add a field to this dataclass
+  F0/D0/A5/E0  convert the dict into our internal Record type
+  F0/D0/A5/E0  apply our late-fee rule: 1.5% after 30 days, waived for annu
+  F0/D0/A5/E0  compute the discount tier from our pricing table
+  F0/D0/A5/E0  swap requests for the httpx client we already depend on
+  F0/D0/A5/E0  we already use tenacity -- add retry to this one call
+  F0/D0/A5/E0  add a --verbose flag to the existing argparse parser
+  F0/D0/A5/E0  add a 20-line adapter between the store interface and the ne

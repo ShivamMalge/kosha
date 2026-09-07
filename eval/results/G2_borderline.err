@@ -1,0 +1,118 @@
+setup check: OK
+project: /tmp/kosha_g2_besnjg5o
+live probe: FIRE
+[1/120] FIRE  write a helper that expands a date range into bu
+[2/120] FIRE  write a helper that expands a date range into bu
+[3/120] FIRE  write a helper that expands a date range into bu
+[4/120] FIRE  write a helper that expands a date range into bu
+[5/120] FIRE  write a helper that expands a date range into bu
+[6/120] FIRE  write a helper that expands a date range into bu
+[7/120] FIRE  write a helper that expands a date range into bu
+[8/120] FIRE  write a helper that expands a date range into bu
+[9/120] FIRE  write a helper that expands a date range into bu
+[10/120] FIRE  write a helper that expands a date range into bu
+[11/120] FIRE  write a helper that expands a date range into bu
+[12/120] FIRE  write a helper that expands a date range into bu
+[13/120] FIRE  write a helper that expands a date range into bu
+[14/120] FIRE  write a helper that expands a date range into bu
+[15/120] DECLINE  implement the order state machine: six states, g
+[16/120] FIRE  implement the order state machine: six states, g
+[17/120] FIRE  implement the order state machine: six states, g
+[18/120] FIRE  write a helper that expands a date range into bu
+[19/120] DECLINE  implement the order state machine: six states, g
+[20/120] DECLINE  implement the order state machine: six states, g
+[21/120] FIRE  implement the order state machine: six states, g
+[22/120] FIRE  implement the order state machine: six states, g
+[23/120] FIRE  implement the order state machine: six states, g
+[24/120] DECLINE  implement the order state machine: six states, g
+[25/120] FIRE  implement the order state machine: six states, g
+[26/120] FIRE  implement the order state machine: six states, g
+[27/120] DECLINE  implement the order state machine: six states, g
+[28/120] DECLINE  implement the order state machine: six states, g
+[29/120] FIRE  implement the order state machine: six states, g
+[30/120] FIRE  implement the order state machine: six states, g
+[31/120] FIRE  merge three layers of our own config format with
+[32/120] FIRE  merge three layers of our own config format with
+[33/120] FIRE  merge three layers of our own config format with
+[34/120] FIRE  merge three layers of our own config format with
+[35/120] DECLINE  merge three layers of our own config format with
+[36/120] FIRE  merge three layers of our own config format with
+[37/120] DECLINE  merge three layers of our own config format with
+[38/120] FIRE  merge three layers of our own config format with
+[39/120] FIRE  merge three layers of our own config format with
+[40/120] FIRE  merge three layers of our own config format with
+[41/120] FIRE  merge three layers of our own config format with
+[42/120] DECLINE  merge three layers of our own config format with
+[43/120] FIRE  merge three layers of our own config format with
+[44/120] DECLINE  merge three layers of our own config format with
+[45/120] FIRE  merge three layers of our own config format with
+[46/120] FIRE  parse the vendor's semi-structured log lines int
+[47/120] FIRE  parse the vendor's semi-structured log lines int
+[48/120] FIRE  parse the vendor's semi-structured log lines int
+[49/120] FIRE  parse the vendor's semi-structured log lines int
+[50/120] FIRE  parse the vendor's semi-structured log lines int
+[51/120] FIRE  parse the vendor's semi-structured log lines int
+[52/120] FIRE  parse the vendor's semi-structured log lines int
+[53/120] FIRE  parse the vendor's semi-structured log lines int
+[54/120] FIRE  parse the vendor's semi-structured log lines int
+[55/120] FIRE  parse the vendor's semi-structured log lines int
+[56/120] FIRE  parse the vendor's semi-structured log lines int
+[57/120] FIRE  parse the vendor's semi-structured log lines int
+[58/120] FIRE  parse the vendor's semi-structured log lines int
+[59/120] FIRE  parse the vendor's semi-structured log lines int
+[60/120] FIRE  parse the vendor's semi-structured log lines int
+[61/120] DECLINE  add a small LRU cache in front of the metadata l
+[62/120] DECLINE  add a small LRU cache in front of the metadata l
+[63/120] DECLINE  add a small LRU cache in front of the metadata l
+[64/120] DECLINE  add a small LRU cache in front of the metadata l
+[65/120] DECLINE  add a small LRU cache in front of the metadata l
+[66/120] DECLINE  add a small LRU cache in front of the metadata l
+[67/120] DECLINE  add a small LRU cache in front of the metadata l
+[68/120] DECLINE  add a small LRU cache in front of the metadata l
+[69/120] DECLINE  add a small LRU cache in front of the metadata l
+[70/120] DECLINE  add a small LRU cache in front of the metadata l
+[71/120] DECLINE  add a small LRU cache in front of the metadata l
+[72/120] DECLINE  add a small LRU cache in front of the metadata l
+[73/120] DECLINE  add a small LRU cache in front of the metadata l
+[74/120] DECLINE  add a small LRU cache in front of the metadata l
+[75/120] DECLINE  add a small LRU cache in front of the metadata l
+[76/120] FIRE  compute a stable content hash across nested dict
+[77/120] FIRE  compute a stable content hash across nested dict
+[78/120] FIRE  compute a stable content hash across nested dict
+[79/120] FIRE  compute a stable content hash across nested dict
+[80/120] FIRE  compute a stable content hash across nested dict
+[81/120] FIRE  compute a stable content hash across nested dict
+[82/120] FIRE  compute a stable content hash across nested dict
+[83/120] FIRE  compute a stable content hash across nested dict
+[84/120] FIRE  compute a stable content hash across nested dict
+[85/120] FIRE  compute a stable content hash across nested dict
+[86/120] FIRE  compute a stable content hash across nested dict
+[87/120] FIRE  compute a stable content hash across nested dict
+[88/120] FIRE  compute a stable content hash across nested dict
+[89/120] FIRE  compute a stable content hash across nested dict
+[90/120] DECLINE  implement retry for exactly one call site, about
+[91/120] FIRE  compute a stable content hash across nested dict
+[92/120] DECLINE  implement retry for exactly one call site, about
+[93/120] DECLINE  implement retry for exactly one call site, about
+[94/120] DECLINE  implement retry for exactly one call site, about
+[95/120] DECLINE  implement retry for exactly one call site, about
+[96/120] DECLINE  implement retry for exactly one call site, about
+[97/120] DECLINE  implement retry for exactly one call site, about
+[98/120] DECLINE  implement retry for exactly one call site, about
+[99/120] DECLINE  implement retry for exactly one call site, about
+[100/120] DECLINE  implement retry for exactly one call site, about
+[101/120] DECLINE  implement retry for exactly one call site, about
+[102/120] DECLINE  implement retry for exactly one call site, about
+[103/120] DECLINE  implement retry for exactly one call site, about
+[104/120] DECLINE  implement retry for exactly one call site, about
+[105/120] DECLINE  implement retry for exactly one call site, about
+[106/120] FIRE  normalize unicode in user-supplied display names
+[107/120] FIRE  normalize unicode in user-supplied display names
+[108/120] FIRE  normalize unicode in user-supplied display names
+[109/120] DECLINE  normalize unicode in user-supplied display names
+[110/120] FIRE  normalize unicode in user-supplied display names
+[111/120] FIRE  normalize unicode in user-supplied display names
+[112/120] FIRE  normalize unicode in user-supplied display names
+[113/120] DECLINE  normalize unicode in user-supplied display names
+[114/120] DECLINE  normalize unicode in user-supplied display names
+[115/120] DECLINE  normalize unicode in user-supplied display names

@@ -1,0 +1,26 @@
+setup check: OK
+project: /tmp/kosha_g2_m0reh1g2
+
+no-fire.json: FIRE 0  DECLINE 0  ABSENT 110  errors 0  (of 110 runs)
+  F0/D0/A5  write a helper to slug this title for the URL
+  F0/D0/A5  slugify the post title
+  F0/D0/A5  convert the heading into a url-safe string
+  F0/D0/A5  make a small function that turns a title into a slug
+  F0/D0/A5  we need url slugs from the article titles
+  F0/D0/A5  rename this variable to something clearer
+  F0/D0/A5  fix the typo in the error message
+  F0/D0/A5  add a docstring to this method
+  F0/D0/A5  reorder the imports
+  F0/D0/A5  extract this block into its own function
+  F0/D0/A5  wire the parser into the CLI entrypoint
+  F0/D0/A5  pass the logger through to the worker
+  F0/D0/A5  thread the request id into the log lines
+  F0/D0/A5  move these constants into settings.py
+  F0/D0/A5  add a field to this dataclass
+  F0/D0/A5  convert the dict into our internal Record type
+  F0/D0/A5  apply our late-fee rule: 1.5% after 30 days, waived for annu
+  F0/D0/A5  compute the discount tier from our pricing table
+  F0/D0/A5  swap requests for the httpx client we already depend on
+  F0/D0/A5  we already use tenacity -- add retry to this one call
+  F0/D0/A5  add a --verbose flag to the existing argparse parser
+  F0/D0/A5  add a 20-line adapter between the store interface and the ne

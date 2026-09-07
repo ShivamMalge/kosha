@@ -1,6 +1,6 @@
 {
   "skill_name": "kosha",
-  "description": "Check whether a library already solves a component before writing it, during PLANNING only. Use when a plan step proposes building something substantial that a package likely already does - retry with backoff, rate limiting, CLI flag and config layering, schema or tabular validation, parsing and serialization, scheduling, caching, protocol or format handling. Requires at least two of - roughly 80+ lines of non-trivial logic, a recognized problem class, would warrant its own test file. Do NOT use for - anything under ~30 lines, glue and wiring, config plumbing, type conversion, renaming or refactoring, project-specific business rules, a domain the project already depends on a library for, or any point after implementation has started. When borderline, do not use.",
+  "description": "Find whether an existing library already solves a component before writing it by hand. Covers retry, backoff and jitter; rate limiting, throttling, HTTP clients and Retry-After; CLI flags, argument parsing, layered config from files and environment variables; validating tables, dataframes, columns, schemas, nullability and value ranges; parsing and serializing CSV, JSON, TOML, YAML and parquet; deserializing rows into typed structs; scheduling, caching, diffing, hashing, date and timezone handling, unicode normalization, and concurrency primitives. Suggests stdlib first, then a small focused package, and is willing to say write it yourself. Python (PyPI) and Rust (crates.io).",
   "results": [
     {
       "query": "retry w/ jitter on the upload path",
@@ -21,8 +21,8 @@
     {
       "query": "The ingest client fails intermittently against the upstream API. Planning the retry story: exponential backoff, jitter, a cap on total attempts, and a way to say which exception types are worth retrying at all.",
       "should_trigger": true,
-      "trigger_rate": 0.4,
-      "triggers": 2,
+      "trigger_rate": 0.6,
+      "triggers": 3,
       "runs": 5,
       "pass": false
     },
@@ -37,8 +37,8 @@
     {
       "query": "cli config layering",
       "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
+      "trigger_rate": 0.4,
+      "triggers": 2,
       "runs": 5,
       "pass": false
     },
@@ -53,8 +53,8 @@
     {
       "query": "Planning the entrypoint: command-line flags override environment variables, which override a TOML config file, which falls back to defaults. Values need type validation and errors that say which layer supplied the bad value.",
       "should_trigger": true,
-      "trigger_rate": 0.4,
-      "triggers": 2,
+      "trigger_rate": 0.0,
+      "triggers": 0,
       "runs": 5,
       "pass": false
     },
@@ -69,16 +69,16 @@
     {
       "query": "column type, nullability and range checks on the input table",
       "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
+      "trigger_rate": 0.8,
+      "triggers": 4,
       "runs": 5,
       "pass": false
     },
     {
       "query": "Before ingest we need to check the incoming table: column types, nullability, value ranges, and two cross-column constraints, with a readable report of everything that failed rather than the first failure.",
       "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
+      "trigger_rate": 0.4,
+      "triggers": 2,
       "runs": 5,
       "pass": false
     },
@@ -101,29 +101,37 @@
     {
       "query": "http client that respects Retry-After on 429",
       "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
+      "trigger_rate": 0.6,
+      "triggers": 3,
       "runs": 5,
       "pass": false
     },
     {
       "query": "Designing the outbound HTTP layer: per-host rate limits so we do not trip the vendor quota, retry on 429 honouring Retry-After, and shared connection pooling across workers.",
       "should_trigger": true,
-      "trigger_rate": 0.2,
-      "triggers": 1,
+      "trigger_rate": 0.4,
+      "triggers": 2,
       "runs": 5,
       "pass": false
     },
     {
       "query": "tokio retry with a deadline",
       "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
+      "trigger_rate": 0.4,
+      "triggers": 2,
       "runs": 5,
       "pass": false
     },
     {
       "query": "retry this async task with exponential backoff in Rust",
+      "should_trigger": true,
+      "trigger_rate": 0.6,
+      "triggers": 3,
+      "runs": 5,
+      "pass": false
+    },
+    {
+      "query": "In the Rust worker the fallible task needs retrying with exponential backoff under an overall deadline, and it has to stay cancel-safe across the retry boundary.",
       "should_trigger": true,
       "trigger_rate": 0.2,
       "triggers": 1,
@@ -131,18 +139,10 @@
       "pass": false
     },
     {
-      "query": "In the Rust worker the fallible task needs retrying with exponential backoff under an overall deadline, and it has to stay cancel-safe across the retry boundary.",
-      "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
-      "runs": 5,
-      "pass": false
-    },
-    {
       "query": "csv to typed structs with per-row errors",
       "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
+      "trigger_rate": 0.8,
+      "triggers": 4,
       "runs": 5,
       "pass": false
     },
@@ -157,8 +157,8 @@
     {
       "query": "The Rust importer reads a vendor CSV and needs each row deserialized into a typed struct, collecting per-row errors into a report rather than failing the whole file on the first bad row.",
       "should_trigger": true,
-      "trigger_rate": 0.0,
-      "triggers": 0,
+      "trigger_rate": 0.6,
+      "triggers": 3,
       "runs": 5,
       "pass": false
     }

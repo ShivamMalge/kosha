@@ -1,0 +1,437 @@
+{
+  "eval_set": "must-fire.json",
+  "runs_per_query": 5,
+  "gate_tokens_est": 244,
+  "summary": {
+    "queries": 20,
+    "total_runs": 100,
+    "FIRE": 96,
+    "DECLINE": 4,
+    "ABSENT": 0,
+    "ERROR": 0,
+    "errors": 0,
+    "wall_seconds": 981.1
+  },
+  "results": [
+    {
+      "query": "retry w/ jitter on the upload path",
+      "should_trigger": true,
+      "FIRE": 3,
+      "DECLINE": 2,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}},\"session_id\":\"18865a7f-6329-4aac-bd96-2af7f1f09b16\",\"parent_too",
+        "genuinely borderline \u2014 no upload code present to size the change against\\n\\nTher",
+        "no target code exists \u2014 cannot assess scope\\n\\nThere's no upload path here to mo",
+        "retry-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}},\"session_id\":\"5ccd2d1c-aeb6-4d69-b12d-d9087ebb08fb\",\"parent_too"
+      ],
+      "runs": 5,
+      "fire_rate": 0.6,
+      "decline_rate": 0.4,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "add retry logic with backoff to the ingest client",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry-backoff\"}},\"session_id\":\"bc130877-b78d-459a-b791-f5d20b918b71\",\"parent_too",
+        "retry/backoff\"}},\"session_id\":\"15de9ee8-d108-4275-892b-85d1c6cc9398\",\"parent_too",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry-backoff\\n\\nTwo blockers before I can start:\\n\\n**1. I can't read the kosha",
+        "retry-back\"}},\"session_id\":\"1ccd2e25-46ed-4718-8250-b745908491aa\",\"parent_tool_u"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "The ingest client fails intermittently against the upstream API. Planning the retry story: exponential backoff, jitter, a cap on total attempts, and a way to say which exception types are worth retrying at all.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}},\"session_id\":\"f21045cd-c99d-4c56-8121-b9954acb62b6\",\"parent_too",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "add structured retry around the S3 client calls",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}},\"session_id\":\"00ba6406-38d2-4922-90ce-08c4f768c36d\",\"parent_too",
+        "ret\"}},\"session_id\":\"1018c90f-1931-4ff9-8dbc-76cecb564c17\",\"parent_tool_use_id\":",
+        "retry/backoff\"}},\"session_id\":\"74c2b7c1-f19d-4375-8cd3-edf5d1ecf661\",\"parent_too",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "cli config layering",
+      "should_trigger": true,
+      "FIRE": 3,
+      "DECLINE": 2,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "config plumbing\"}},\"session_id\":\"835325d8-5bca-49b6-9558-32ccaebc035e\",\"parent_t",
+        "cli-config-layering\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu",
+        "c\"}},\"session_id\":\"c2d37efe-5915-48dd-a0a1-a5423796ddec\",\"parent_tool_use_id\":nu",
+        "config plumbing\\n\\nLet me look at what's in the working directory.\"}],\"stop_reas",
+        "cli-config-layering\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu"
+      ],
+      "runs": 5,
+      "fire_rate": 0.6,
+      "decline_rate": 0.4,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "build a CLI with flags, env vars, and a config file, in that precedence order",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "cli-config-precedence\"}},\"session_id\":\"2a8dfeac-1295-4c45-8bdf-46f86bee94ad\",\"pa",
+        "cli-config-layering\"}},\"session_id\":\"3a112257-1daa-46f7-aa44-4a8d2ff80881\",\"pare",
+        "c\"}},\"session_id\":\"a725e32d-c595-49f0-be28-7a206add9f5c\",\"parent_tool_use_id\":nu",
+        "cli-arg-parsing-and-layered-config\"}],\"stop_reason\":null,\"stop_sequence\":null,\"s",
+        "cli-config\"}},\"session_id\":\"298f7e7b-6503-4e34-aa3f-ca0fb8c13d3e\",\"parent_tool_u"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Planning the entrypoint: command-line flags override environment variables, which override a TOML config file, which falls back to defaults. Values need type validation and errors that say which layer supplied the bad value.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "layered-configuration-resolution\"}],\"stop_reason\":null,\"stop_sequence\":null,\"sto",
+        "layered configuration resolution with type validation and provenance-tracking er",
+        "layered-config-resolution\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_detai",
+        "layered configuration resolution with provenance-tracked validation\"}},\"session_",
+        "layered-configuration-resolution\"}],\"stop_reason\":null,\"stop_sequence\":null,\"sto"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "validate the dataframe schema before we load it",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "dataframe-schema-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_det",
+        "dataframe-schema-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_det",
+        "dataframe-schema-validation\"}},\"session_id\":\"68f3877b-c149-4eb7-93df-088e5ba64b4",
+        "dataframe-schema-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_det",
+        "dataframe schema validation\\n\\nTwo things before I write anything.\\n\\n**1. I can"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "column type, nullability and range checks on the input table",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "tabular-data-schema-validation\"}},\"session_id\":\"37408360-880c-4578-9c38-8d19bcec",
+        "dataframe/table schema validation\"}},\"session_id\":\"de9c0d79-247d-4149-a4db-51072",
+        "table/dataframe schema validation (type, nullability, range checks)\"}],\"stop_rea",
+        "tabular data schema validation (types, nullability, ranges)\"}],\"stop_reason\":nul",
+        "dataframe-schema-validation\"}},\"session_id\":\"b2186112-4868-4fd3-87b2-567cfdb5e98"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Before ingest we need to check the incoming table: column types, nullability, value ranges, and two cross-column constraints, with a readable report of everything that failed rather than the first failure.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "tabular-data-schema-validation\\n\\nI need to read the kosha skill to follow it, b",
+        "data-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"",
+        "tabular-data-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details",
+        "tabular-data-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details",
+        "tabular-data-schema-validation\"}},\"session_id\":\"a49284c0-f80b-46dd-9606-d47c8171"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "we need schema validation on the parquet input before the transform step",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "parquet-schema-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_detai",
+        "parquet/dataframe schema validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"",
+        "parquet/dataframe schema validation\"}],\"stop_reason\":null,\"stop_sequence\":null,\"",
+        "parquet-schema-validation\\n\\nI\"}},\"session_id\":\"ca771245-4a33-4970-adda-4adf479b",
+        "parquet-schema-validation\\n\\nI tried to read the kosha skill at `/home/shivam/ko"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "add per-host rate limiting to the API client",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "rate-limiting\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "rate-limiting\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "rate-limiting\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "rate-limiting\"}},\"session_id\":\"8e8fe0fe-06f3-49b0-90a4-5244c680a5af\",\"parent_too",
+        "rate-limiting\"}},\"session_id\":\"b3beb85a-1dfd-4818-ad76-4bbf1a944b0c\",\"parent_too"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "http client that respects Retry-After on 429",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "http-retry-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nul",
+        "http-retry-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nul",
+        "http-retry-backoff\"}},\"session_id\":\"bda772d9-0b4d-4c49-ba08-b553a1fd573a\",\"paren",
+        "http-retry\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage",
+        "http-retry-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nul"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "Designing the outbound HTTP layer: per-host rate limits so we do not trip the vendor quota, retry on 429 honouring Retry-After, and shared connection pooling across workers.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "outbound-http-rate-limiting-retry\"}],\"stop_reason\":null,\"stop_sequence\":null,\"st",
+        "outbound-http-rate-limit-retry\"}},\"session_id\":\"c8e6fc49-a18c-4b1e-b47d-bce86128",
+        "outbound-http-client (rate limiting, retry/backoff, connection pooling)\"}],\"stop",
+        "outbound-http-resilience (per-host rate limiting + retry/Retry-After + connectio",
+        "outbound-http-rate-limiting-retry\\n\\nThe gate fired (recognized problem class \u2014 "
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "tokio retry with a deadline",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry-with-deadline\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "retry this async task with exponential backoff in Rust",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"us",
+        "retry/backoff\\n\\nTwo things before the code:\\n\\n1. The gate fired and told me to",
+        "retry/backoff\"}},\"session_id\":\"3ca8e516-d1ed-4832-a051-2709f16ea9b3\",\"parent_too"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "In the Rust worker the fallible task needs retrying with exponential backoff under an overall deadline, and it has to stay cancel-safe across the retry boundary.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "retry-backoff\"}},\"session_id\":\"2b5d580a-80f2-4dc7-aded-7036af48f1dd\",\"parent_too",
+        "retry-with-exponential-backoff\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_",
+        "retry/backoff\"}},\"session_id\":\"ef8dceef-e7e3-4ac5-965c-4fae29544239\",\"parent_too",
+        "retry-backoff\"}},\"session_id\":\"00232397-092d-4693-96c1-02d509facd9e\",\"parent_too",
+        "retry-backoff-deadline\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\""
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "csv to typed structs with per-row errors",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "csv-parsing-and-row-level-validation\"}],\"stop_reason\":null,\"stop_sequence\":null,",
+        "cs\"}},\"session_id\":\"303a7227-2533-4dd4-bfb1-c6e02aa64588\",\"parent_tool_use_id\":n",
+        "csv-decoding-to-typed-structs\\n\\nI couldn't\"}},\"session_id\":\"d2d32fc1-e950-454f-",
+        "csv parsing and row-level validation into typed structs\"}],\"stop_reason\":null,\"s",
+        "csv-parsing-typed-decoding\"}},\"session_id\":\"3d253102-a861-41c1-9f39-035eede85f2c"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "parse this CSV into typed structs in Rust",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "csv-parsing-and-deserialization\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop",
+        "csv-parsing-rust\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,",
+        "csv-parsing-and-typed-deserialization-rust\"}],\"stop_reason\":null,\"stop_sequence\"",
+        "csv-parsing/deserialization\"}},\"session_id\":\"17d1b789-3004-4f5b-bbd1-3ccce88f123",
+        "csv-parsing\"}},\"session_id\":\"e1ccd488-7187-451f-8314-322c01f4aa52\",\"parent_tool_"
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    },
+    {
+      "query": "The Rust importer reads a vendor CSV and needs each row deserialized into a typed struct, collecting per-row errors into a report rather than failing the whole file on the first bad row.",
+      "should_trigger": true,
+      "FIRE": 5,
+      "DECLINE": 0,
+      "ABSENT": 0,
+      "ERROR": 0,
+      "errors": 0,
+      "details": [
+        "csv-deserialization\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":nu",
+        "csv-deserialization-rust\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_detail",
+        "csv-row-deserialization-with-per-row-error-collection\"}],\"stop_reason\":null,\"sto",
+        "csv-deserialization-with-per-row-error-collection\"}],\"stop_reason\":null,\"stop_se",
+        "csv-row-deserialization\"}},\"session_id\":\"1c0a66e4-95c2-496f-a8cd-617ce9741056\",\""
+      ],
+      "runs": 5,
+      "fire_rate": 1.0,
+      "decline_rate": 0.0,
+      "absent_rate": 0.0,
+      "error_rate": 0.0
+    }
+  ]
+}
