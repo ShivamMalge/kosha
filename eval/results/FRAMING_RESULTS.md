@@ -72,4 +72,6 @@ The 96% is not wrong; it describes a narrower condition than it appeared to. Bot
 
 ## Handling
 
-**Nothing tuned. Both threshold-rule rounds remain unspent**, per the pre-registration, despite this being the strongest case yet for spending one — the finding is fresh, n is one batch, and the same discipline that refused a round after H4 applies here. It is the first item for P7.
+**Nothing tuned** in response to this run, per the pre-registration.
+
+> **Superseded 2026-09-07.** This recommendation was overruled on review, correctly: 54% in the register where `prd.md` §1 says the failure actually arrives is a **miss against F4.3**, not a scope limit, and deferring would have built P2–P6 on a trigger measured as broken. Round 1 was spent here and **failed** (`R2_RESULTS.md`) — the aggregate moved 54% → 62% while both matched pairs stayed flat. **1 of 2 rounds remains.**

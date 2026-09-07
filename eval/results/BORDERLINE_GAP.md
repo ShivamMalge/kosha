@@ -1,7 +1,7 @@
 # The borderline gap — characterization, not a fix
 
 **Date:** 2026-09-07 · **Status:** PROPOSAL ONLY. Nothing in the rule is changed.
-**Budget:** the threshold-rule budget still has **both rounds unspent**, and stays unspent until the evidence distinguishes the options.
+**Budget:** *(as written)* both rounds unspent. **Superseded 2026-09-07** — round 1 was spent on the framing failure, not on this gap, and failed (`R2_RESULTS.md`). **1 of 2 remains.** The paper checks in `R2_PAPER_CHECKS.md` also relocate the target away from clause wording; see `AMBIGUITY_RULE_GAP.md` §1b.
 
 This is the first finding in four rounds that is about **kosha's logic** rather than its plumbing.
 
