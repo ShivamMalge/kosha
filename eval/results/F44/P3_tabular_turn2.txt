@@ -1,0 +1,138 @@
+KOSHA: DECLINE implementation of this component already began in this session
+
+```python
+"""Hand-rolled column checks for the input table: type, nullability, range."""
+
+from dataclasses import dataclass
+from typing import Any, Optional
+
+
+@dataclass(frozen=True)
+class Column:
+    type: type
+    nullable: bool = False
+    min: Any = None                        # inclusive
+    max: Any = None                        # inclusive
+    allowed: Optional[frozenset] = None
+
+
+# Fill in with the real columns.
+SCHEMA = {
+    "id":     Column(int, min=1),
+    "name":   Column(str),
+    "amount": Column(float, nullable=True, min=0.0, max=1_000_000.0),
+    "active": Column(bool),
+    "status": Column(str, allowed=frozenset({"new", "open", "closed"})),
+}
+
+
+@dataclass(frozen=True)
+class Failure:
+    row: int
+    column: str
+    problem: str
+
+
+def check_value(spec, value):
+    """Return a problem description for one cell, or None if it is fine."""
+    if value is None:
+        return None if spec.nullable else "is null (column is not nullable)"
+
+    # An int in a float column is normally intended; widen it before the check.
+    if spec.type is float and isinstance(value, int) and not isinstance(value, bool):
+        value = float(value)
+
+    if not isinstance(value, spec.type):
+        return f"expected {spec.type.__name__}, got {type(value).__name__} ({value!r})"
+    # bool is a subclass of int, so isinstance(True, int) passes above.
+    if spec.type is int and isinstance(value, bool):
+        return f"expected int, got bool ({value!r})"
+
+    if spec.allowed is not None and value not in spec.allowed:
+        return f"{value!r} not in allowed values {sorted(spec.allowed)}"
+    if spec.min is not None and value < spec.min:
+        return f"{value!r} is below minimum {spec.min!r}"
+    if spec.max is not None and value > spec.max:
+        return f"{value!r} is above maximum {spec.max!r}"
+    return None
+
+
+def find_failures(rows):
+    """Collect every problem in the table instead of stopping at the first."""
+    expected_cols = set(SCHEMA)
+    failures = []
+
+    for i, row in enumerate(rows):
+        for col in sorted(expected_cols - set(row)):
+            failures.append(Failure(i, col, "missing from row"))
+        for col in sorted(set(row) - expected_cols):
+            failures.append(Failure(i, col, "not in schema"))
+
+        for col, spec in SCHEMA.items():
+            if col not in row:
+                continue
+            problem = check_value(spec, row[col])
+            if problem is not None:
+                failures.append(Failure(i, col, problem))
+
+    return failures
+
+
+def format_report(failures, total_rows, max_examples=5):
+    if not failures:
+        return f"OK: {total_rows} rows, {len(SCHEMA)} columns, no problems found."
+
+    by_column = {}
+    for f in failures:
+        by_column.setdefault(f.column, []).append(f)
+
+    bad_rows = {f.row for f in failures}
+    lines = [
+        f"FAILED: {len(failures)} problems across "
+        f"{len(bad_rows)} of {total_rows} rows.",
+        "",
+    ]
+    for col in sorted(by_column):
+        items = by_column[col]
+        plural = "" if len(items) == 1 else "s"
+        lines.append(f"  {col}  ({len(items)} problem{plural})")
+        for f in items[:max_examples]:
+            lines.append(f"    row {f.row}: {f.problem}")
+        if len(items) > max_examples:
+            lines.append(f"    ... and {len(items) - max_examples} more")
+        lines.append("")
+
+    return "\n".join(lines).rstrip()
+
+
+def check_input_table(rows):
+    """Assert the whole table is valid; the message is the full report."""
+    rows = list(rows)
+    failures = find_failures(rows)
+    report = format_report(failures, len(rows))
+    assert not failures, "\n" + report
+    return report
+```
+
+Sample report for a table with several bad rows:
+
+```
+FAILED: 4 problems across 3 of 200 rows.
+
+  amount  (2 problems)
+    row 12: -3.5 is below minimum 0.0
+    row 87: expected float, got str ('n/a')
+
+  id  (1 problem)
+    row 12: 0 is below minimum 1
+
+  status  (1 problem)
+    row 140: 'pending' not in allowed values ['closed', 'new', 'open']
+```
+
+Notes on the judgment calls:
+
+- **Null short-circuits.** A `None` in a nullable column skips the type and range checks rather than failing them — otherwise every null would produce two confusing problems.
+- **`min`/`max` are inclusive** and compare with `<`/`>`, so they work for numbers and dates. On a `str` column they'd compare lexically, which is rarely what you want — use `allowed` for strings.
+- **Ints widen into float columns.** `Column(float)` accepts `5` as well as `5.0`; drop those two lines if you want strict floats.
+- Use `find_failures` + `format_report` directly if you'd rather log the report than raise on it.

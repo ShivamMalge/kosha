@@ -1,0 +1,149 @@
+KOSHA: DECLINE implementation of this component already began in this session
+
+`parse_row` is unchanged. Everything below is additive — the per-row result gets folded into a report instead of short-circuiting.
+
+```rust
+/// A row that failed, tagged with the 1-based line it came from.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct RowError {
+    pub line: usize,
+    pub source: ParseRowError,
+}
+
+impl fmt::Display for RowError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "line {}: {}", self.line, self.source)
+    }
+}
+
+impl Error for RowError {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        Some(&self.source)
+    }
+}
+
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct Report {
+    pub records: Vec<Record>,
+    pub errors: Vec<RowError>,
+}
+
+impl Report {
+    pub fn rows_seen(&self) -> usize {
+        self.records.len() + self.errors.len()
+    }
+
+    pub fn is_clean(&self) -> bool {
+        self.errors.is_empty()
+    }
+
+    /// Collapse back to all-or-nothing when the caller wants strictness.
+    pub fn into_result(self) -> Result<Vec<Record>, Vec<RowError>> {
+        if self.errors.is_empty() {
+            Ok(self.records)
+        } else {
+            Err(self.errors)
+        }
+    }
+}
+
+impl fmt::Display for Report {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        writeln!(
+            f,
+            "{} of {} rows parsed, {} failed",
+            self.records.len(),
+            self.rows_seen(),
+            self.errors.len()
+        )?;
+        for err in &self.errors {
+            writeln!(f, "  {err}")?;
+        }
+        Ok(())
+    }
+}
+
+pub fn parse_file(input: &str) -> Report {
+    parse_rows(input.lines())
+}
+
+/// Blank lines are skipped, but still consume a line number so the
+/// reported positions match the source file.
+pub fn parse_rows<'a, I>(lines: I) -> Report
+where
+    I: IntoIterator<Item = &'a str>,
+{
+    let mut report = Report::default();
+
+    for (idx, line) in lines.into_iter().enumerate() {
+        if line.trim().is_empty() {
+            continue;
+        }
+        match parse_row(line) {
+            Ok(record) => report.records.push(record),
+            Err(source) => report.errors.push(RowError { line: idx + 1, source }),
+        }
+    }
+
+    report
+}
+```
+
+Tests for the new layer:
+
+```rust
+#[cfg(test)]
+mod report_tests {
+    use super::*;
+
+    const INPUT: &str = "\
+1,Ada,ada@example.com,36,true
+2,Grace,grace@example.com,nope,true
+3,Alan,alan@example.com,41,false
+
+4,Katherine
+5,Dorothy,dorothy@example.com,29,true
+";
+
+    #[test]
+    fn keeps_going_past_bad_rows() {
+        let report = parse_file(INPUT);
+        assert_eq!(report.records.len(), 3);
+        assert_eq!(report.errors.len(), 2);
+        assert_eq!(report.rows_seen(), 5);
+        assert!(!report.is_clean());
+
+        let ids: Vec<u64> = report.records.iter().map(|r| r.id).collect();
+        assert_eq!(ids, vec![1, 3, 5]);
+    }
+
+    #[test]
+    fn error_line_numbers_account_for_blanks() {
+        let report = parse_file(INPUT);
+        let lines: Vec<usize> = report.errors.iter().map(|e| e.line).collect();
+        assert_eq!(lines, vec![2, 5]);
+    }
+
+    #[test]
+    fn into_result_is_ok_when_clean() {
+        let report = parse_file("1,Ada,ada@example.com,36,true\n");
+        assert!(report.is_clean());
+        assert_eq!(report.into_result().unwrap().len(), 1);
+    }
+
+    #[test]
+    fn renders_a_readable_summary() {
+        let text = parse_file(INPUT).to_string();
+        assert!(text.starts_with("3 of 5 rows parsed, 2 failed"));
+        assert!(text.contains("line 2: field `age`"));
+        assert!(text.contains("line 5: expected 5 fields, found 2"));
+    }
+}
+```
+
+Two decisions I made that you may want to change:
+
+- **Blank lines are skipped silently** and don't count toward `rows_seen()`. If a stray blank line in the middle of a file is itself a data problem for you, drop the `continue` and let it fail the field-count check.
+- **No error cap.** On a badly misaligned file (say, a semicolon-delimited export) every row fails and `errors` grows as large as the input. If that's reachable, add a limit and a `truncated: bool` on `Report`.
+
+There's no header handling here — feed it `input.lines().skip(1)` via `parse_rows` if your files have one, though note the reported line numbers will then be off by one unless you also offset them.

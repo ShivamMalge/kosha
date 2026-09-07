@@ -1,0 +1,36 @@
+KOSHA: DECLINE implementation already begun in this session
+
+```python
+import random
+import time
+
+MAX_ATTEMPTS = 5
+BASE_DELAY = 1.0
+MAX_TOTAL_DELAY = 20.0
+
+
+def send_with_retry(client, batch):
+    attempt = 0
+    delay = BASE_DELAY
+    spent = 0.0
+    while True:
+        attempt += 1
+        try:
+            return client.send(batch)
+        except TransientIngestError:
+            if attempt >= MAX_ATTEMPTS:
+                raise
+            sleep_for = min(random.uniform(0, delay), MAX_TOTAL_DELAY - spent)
+            if sleep_for <= 0:
+                raise
+            time.sleep(sleep_for)
+            spent += sleep_for
+            delay *= 2
+```
+
+Two changes:
+
+- **Full jitter** — sleep is `uniform(0, delay)` rather than `delay`, so the backoff window doubles but the actual wait is drawn from it. This is what breaks up synchronized retries when many ingest clients fail against the same upstream at once; capped-but-fixed delays would just re-collide on every round.
+- **Total budget** — `spent` accumulates actual sleep, and each sleep is clamped to what's left of `MAX_TOTAL_DELAY`. When the budget is gone, it re-raises instead of sleeping zero and burning the remaining attempts back-to-back.
+
+Worst case is now bounded at 20s of sleep across at most 4 waits, versus 15s unbounded before. Note the budget covers sleep only, not time spent inside `client.send` — if you need a wall-clock ceiling on the whole call, set a deadline with `time.monotonic()` at entry and clamp against that instead.

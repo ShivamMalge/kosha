@@ -80,7 +80,11 @@ The earlier draft recommended **option C** — *when a recognized class and a ne
 
 The reason is exactly as diagnosed from outside: **a recognized problem class applied to project-specific particulars is not an edge case, it is what building software is.** Retry for *my* ingest client. CSV into *my* structs. C converts the never-fire list into a near-universal veto and declines precisely the work kosha exists to catch.
 
-**Recorded as a wrong prediction**, on the same footing as the round-0 miss. The error was proposing a resolution rule without first measuring how often its trigger condition fires on the positive set — the cheapest possible check, against data already on disk.
+**Recorded as a wrong prediction**, on the same footing as the round-0 miss.
+
+> **The generalized lesson: before proposing ANY resolution rule, measure how often its trigger condition fires on the POSITIVE set.**
+>
+> C's condition — *a recognized class and a never-fire clause both hold* — fired on **85% of must-fire**. A rule whose trigger is near-universal on the cases you must not break is not a tiebreak; it is a veto wearing a tiebreak's clothes. The check cost nothing: the data was already on disk and the audit took one pass.
 
 ---
 
@@ -135,7 +139,7 @@ Under D, "names a project artifact" is explicitly **not** a never-fire match, so
 | Risk | guts the positive set | the swap test is still a judgment; could repeat P0 |
 | Falsifier | *(already falsified)* | any of the three fails to reach ≥0.8; or must-fire drops below 90% |
 
-**D is not adopted.** It is a different *kind* of bet from C — a rewritten clause versus a new tiebreak — and the evidence does not yet distinguish a miswritten clause from a missing tiebreak. It only rules out C.
+**D is not adopted, and paper validation weakened it.** Checked against the five *stable* borderline queries and all 20 must-fire — the cases it was not designed for — D leaves must-fire untouched (20/20) but **destabilizes the vendor log parser**, currently a clean 1.00, because the swap test has its own ambiguous zone there. It is also ambiguous on the config merge, which bundles a bespoke format parser with generic override logic. Net: fixes 1, ambiguous on 1, unchanged on 1, breaks 1. Full working in `OPTION_D_PAPER.md`.
 
 ---
 
@@ -153,4 +157,6 @@ The P0 cut was made on a procedural argument — *a rule only its author can app
 
 C is eliminated on evidence. D is plausible and cheap but untested, and "miswritten clause" versus "missing tiebreak" are different bets that the current data cannot separate. The gap affects three queries out of fifty and does not touch must-fire (96%) or the weighted no-fire subset (0/20).
 
-When a round is spent, spend it on **D**, pre-registering: all three unstable queries reach ≥0.8 in the direction predicted above, **and** must-fire stays ≥90%. The second half is the one that matters — it is the clause that would have caught C before it was ever proposed.
+When a round is spent — at **P7, against real usage**, not against a probe set written by kosha's own author — the pre-registration for D is: state machine → ≥0.8 FIRE, must-fire stays ≥90%, **and the vendor log parser stays ≥0.8**. That third clause came from paper validation and is the one most likely to fail.
+
+**The finding worth carrying forward is not D.** Both C and D assume the model knows it is in a hard case and needs better instructions. The evidence says it does not know: each pass is confident and passes disagree, so the ambiguity exists only in the distribution and never inside a single evaluation. That is filed separately as `AMBIGUITY_RULE_GAP.md` and carried to P7.
