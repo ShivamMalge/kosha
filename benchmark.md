@@ -93,6 +93,22 @@ Reuses `no-fire.json`, `must-fire.json` and `borderline.json` **verbatim**, at t
 
 Written **alongside** the harness; `run_eval.py` is never modified (`techstack.md` §6). Its setup check asserts the same envelope shape the hook does — `additionalContext` nested inside `hookSpecificOutput`, never at top level, because top-level placement is ignored silently.
 
+##### Early termination: what it is and is not safe for
+
+The G2 runner streams and **kills the process on verdict match**, the same technique `run_eval.py` uses. Per-call time drops from ~80s to ~13s, turning a ~4 hour batch into ~40 minutes.
+
+The trade is explicit: a run that emits `KOSHA: FIRE` and then behaves inconsistently with its own verdict is scored **purely on the verdict**. That is correct for F4.1/F4.3/F4.4, which are *defined* on the verdict line — but it is not universally safe, so the dependency audit is recorded here rather than assumed.
+
+| Consumer | Needs full transcript? | Consequence |
+| --- | --- | --- |
+| F4.1 / F4.3 (verdict-defined) | **No** | Early kill is sound; the verdict *is* the measurement |
+| F4.4 hand sessions | **Yes** | Hand-operated, never through this runner. Full session by nature |
+| **A/B runner** (§5) — `acceptance_pass`, `loc_handwritten`, `deps_transitive`, token split | **Yes** | **Must never early-terminate.** The task has to actually complete: acceptance suite, diff, dependency resolution, OTel token capture all require a finished run |
+| `kosha_path` / `trigger_fired` (§4.3) | **Yes** | Read from a completed A/B transcript, not from the G2 runner |
+| `load_overhead_tokens` (§7.4) | **Yes** for tokens | `loads_proceeded` needs only the verdict; the token figures need the full run |
+
+**Unmeasured by construction:** verdict-versus-behaviour consistency. A model that says `FIRE` and then does not follow `SKILL.md` looks identical to one that does. Nothing currently detects it. Mitigation when it matters: retain full capture for a **10% sample** of G2 runs and audit those against their verdicts — not adopted now, recorded so the gap is known rather than discovered.
+
 ##### The verdict line is permanent, and that is the point
 
 `SKILL.md` and the gate prompt both instruct emitting exactly one line: `KOSHA: FIRE <domain>` or `KOSHA: DECLINE <clause>`.
@@ -452,15 +468,31 @@ F4.2 bounds the cost of **one** correct non-fire. Nothing previously bounded **h
 
 The hook injects a **compact gate prompt** (`hooks/gate_prompt.txt`, measured **246 tokens**), not `SKILL.md`. The gate carries the never-fire list, the two-of-three rule, and the verdict-line instruction, and tells the model to read `SKILL.md` **only on a FIRE**. The body (measured **1,496 tokens**) therefore loads only when kosha actually proceeds.
 
-| Model | 20-turn session |
-| --- | --- |
-| Body injected every turn | 20 x 1,496 = **29,920** |
-| Compact gate, 0 fires | 20 x 246 = **4,920** |
-| Compact gate, 1 fire | 4,920 + 1,496 = **6,416** |
-| Compact gate, 2 fires | 4,920 + 2,992 = **7,912** |
-| Compact gate, 4 fires | 4,920 + 5,984 = **10,904** |
+#### What a turn actually costs
 
-**Per-turn floor falls from ~1,496 to ~246 tokens, a 6.1x reduction**, and the aggregate for a realistic session drops roughly four-fold.
+A fire is **not** just the body. A turn that proceeds also loads `INDEX.md`, a domain file and the output template — and on a miss, an entire research pass. Costing a fire at the body alone understates it by roughly 3x, and F4.5's threshold will eventually be set against this table, so it must not be the optimistic version by accident.
+
+| Turn type | What loads | Tokens |
+| --- | --- | --- |
+| **DECLINE** | compact gate only | **~246** |
+| **FIRE → cache hit** | gate 246 + body 1,496 + `INDEX.md` 800 + domain file 1,900 + template 300 | **~4,742** |
+| **FIRE → cold miss** | hit path + rubric 900 + research protocol 1,000 + 8–12 fetches 8,000–16,000 + smoke protocol 600 + smoke output 800 + `SCHEMA.md` 700 + write-back 900 | **~15,400–23,400** |
+
+#### 20-turn session
+
+| Scenario | Arithmetic | Total |
+| --- | --- | --- |
+| 0 fires | 20 x 246 | **4,920** |
+| 2 fires, both cache hits | 18 x 246 + 2 x 4,742 | **13,912** |
+| 2 fires, one hit one cold miss | 18 x 246 + 4,742 + ~19,400 | **~28,600** |
+| 2 fires, both cold misses | 18 x 246 + 2 x ~19,400 | **~43,200** |
+| *(superseded)* body every turn, no fires | 20 x 1,496 | 29,920 |
+
+**Per-turn floor falls from ~1,496 to ~246 — a 6.1x reduction on the decline path**, which is the common case. The aggregate is dominated instead by **how many turns fire and whether they hit or miss**: two cold misses cost nearly nine times a two-hit session.
+
+That relocates the risk. Under the old model the danger was paying for the body on every turn; under the compact gate the danger is a small number of expensive misses. F4.5 must therefore be set against `load_overhead_tokens` including the full fire path, not against the decline floor — and it is the reason `decline_rate` is the headline figure rather than `load_rate`.
+
+Estimates carry `architecture.md` §9's ±30%; the gate (246) and body (1,496) are measured, the rest are estimates.
 
 Two consequences:
 

@@ -124,4 +124,59 @@ Development-time only. None of this ships with the skill, and none of it adds a 
 
 The alternatives were forking `aggregate_results` to accept a metric list, or encoding LOC as a boolean `expectations[]` assertion. Both were rejected in `benchmark.md` §4.3 — the second would make the primary metric unmeasurable.
 
+## 6b. Standing rule: live-probe before every batch
+
+**No batch runs until one live call has produced the exact artifact the batch will parse.**
+
+Static setup checks do not satisfy this. The probe must exercise the full path end to end — spawn the real subprocess, in the real working directory, with the real hook installed — and assert on the real output. A check that validates file existence, JSON shape and PATH entries can pass completely while the instrument is dead.
+
+### Why this is a rule and not a fix
+
+Three separate failures, all the same shape: **a well-formed result produced by a dead or unvalidated instrument.**
+
+| # | Incident | Presented as | Actually was |
+| --- | --- | --- | --- |
+| 1 | Void batch | A1 22/22, A2 0/20, clean JSON | All 210 calls failed — no `claude` binary. Failed calls scored as non-triggers |
+| 2 | 22/22 confound | A perfect over-trigger score | Equally consistent with an invisible skill; the positive control proved the *detector* fired, never that *that description* did |
+| 3 | G2 batch 1 | 93–100% ABSENT, 0 errors | `claude -p` blocked on unredirected stdin; the runner recorded no returncode and discarded raw output, so instrument failure hid inside ABSENT |
+
+Each was caught late, by noticing a number was too clean or a timing was too fast. None was caught by a setup check, because all three passed their setup checks.
+
+Instance 3 is the sharpest lesson: the runner deliberately separated `ABSENT` from `DECLINE` so a compliance failure could not hide inside a correct-looking outcome — and then left a larger hole one level down, where instrument failure hid inside `ABSENT`.
+
+### Scope — mandatory for every runner
+
+| Runner | Probe must assert |
+| --- | --- |
+| **G2 runner** (`scripts/g2_runner.py`) | One real call returns a parseable `KOSHA:` verdict. Implemented; refuses the batch on `ERROR` |
+| **A/B runner** (`benchmark.md` §5) | One task × one arm × one rep produces a `grading.json` **and** a `timing.json` carrying a numeric non-zero `total_tokens` — this is Run 0 (§5.3), and the silent `output_chars` fallback is exactly this failure mode |
+| **Sidecar aggregator** | One `metrics.json` parses and its token buckets sum to `timing.json:total_tokens` |
+
+### Corollaries
+
+- **Record `returncode` and persist raw output for every run.** Batch 1's most costly gap was not the stdin bug but discarding the evidence that would have attributed it in seconds instead of after the fact.
+- **A fast-failing call is `ERROR`, never a negative outcome.** Timeouts, non-zero exits and empty output are instrument events, not model behaviour.
+- **Emit per-run progress.** Batch 1 was opaque from outside for its entire duration, making a stalled run indistinguishable from a slow one.
+
+---
+
+## 7. Verified environment — pinned
+
+The `UserPromptSubmit` injection path has a **silent** failure mode: an open report describes the hook executing normally while `additionalContext` never reaches model context in the VS Code extension. It was verified working here (`eval/results/SENTINEL_GATE.md`), but a silent regression leaves no trace, so the passing configuration is pinned to give a future failure something concrete to diff against.
+
+| Component | Version at PASS |
+| --- | --- |
+| **Date verified** | **2026-09-06** |
+| VS Code | **1.136.1** (commit `a44adf7f53e0`) |
+| Claude Code VS Code extension | **anthropic.claude-code-2.1.263-win32-x64** (2.1.261 also present) |
+| Claude Code CLI (WSL Ubuntu) | **2.1.263** |
+| OS | Windows 11 Home Single Language 10.0.26200 / WSL2 Ubuntu |
+| Node (WSL, nvm) | v24.20.0, npm 11.19.0 |
+
+**Re-run the sentinel test after any of these change.** `hooks/sentinel_hook.py` plus `hooks/sentinel_runs.log` reproduce the check in about a minute, and the log is what distinguishes "injection dropped" from "hook never ran" — the distinction that makes a negative result diagnosable instead of merely alarming.
+
+---
+
+## 8. Benchmark tooling
+
 **Token capture** is Claude Code OpenTelemetry: `CLAUDE_CODE_ENABLE_TELEMETRY=1`, `OTEL_METRICS_EXPORTER=console`, `OTEL_METRIC_EXPORT_INTERVAL=5000` ([docs](https://code.claude.com/docs/en/monitoring-usage)). Environment variables, not dependencies — §2 is unchanged.
